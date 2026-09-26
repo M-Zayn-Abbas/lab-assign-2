@@ -1,0 +1,89 @@
+{
+  "project": "web",
+  "group": {
+    "level": "unit",
+    "id": "UT-W05",
+    "name": "apiRequest() - Frontend API request handler"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-W05-01",
+      "uc": "UC-W03 Browse Products / all API calls",
+      "title": "GET request returns status + parsed JSON body",
+      "objective": "Verify the API request handler builds requests correctly and normalises responses/errors",
+      "pre": "public/api.js loaded; fetch replaced by a Jest stub (no server needed)",
+      "steps": "1. Create stub fetch  2. Call apiRequest(url, options)  3. Inspect result and stub call arguments",
+      "data": "GET /api/products; stub -> 200 {ok:true, products:[{id:1}]}",
+      "expected": "{\"status\":200,\"ok\":true,\"products\":[{\"id\":1}]}",
+      "actual": "{\"status\":200,\"ok\":true,\"products\":[{\"id\":1}]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W05-02",
+      "uc": "UC-W03 Browse Products / all API calls",
+      "title": "POST request sends JSON body and Content-Type header",
+      "objective": "Verify the API request handler builds requests correctly and normalises responses/errors",
+      "pre": "public/api.js loaded; fetch replaced by a Jest stub (no server needed)",
+      "steps": "1. Create stub fetch  2. Call apiRequest(url, options)  3. Inspect result and stub call arguments",
+      "data": "POST /api/login body={email:\"a@b.com\"}",
+      "expected": "{\"method\":\"POST\",\"body\":\"{\\\"email\\\":\\\"a@b.com\\\"}\",\"contentType\":\"application/json\"}",
+      "actual": "{\"method\":\"POST\",\"body\":\"{\\\"email\\\":\\\"a@b.com\\\"}\",\"contentType\":\"application/json\"}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W05-03",
+      "uc": "UC-W03 Browse Products / all API calls",
+      "title": "Token is sent as Bearer Authorization header",
+      "objective": "Verify the API request handler builds requests correctly and normalises responses/errors",
+      "pre": "public/api.js loaded; fetch replaced by a Jest stub (no server needed)",
+      "steps": "1. Create stub fetch  2. Call apiRequest(url, options)  3. Inspect result and stub call arguments",
+      "data": "token=\"abc123\"",
+      "expected": "\"Bearer abc123\"",
+      "actual": "\"Bearer abc123\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W05-04",
+      "uc": "UC-W03 Browse Products / all API calls",
+      "title": "Non-JSON response is converted to an error object",
+      "objective": "Verify the API request handler builds requests correctly and normalises responses/errors",
+      "pre": "public/api.js loaded; fetch replaced by a Jest stub (no server needed)",
+      "steps": "1. Create stub fetch  2. Call apiRequest(url, options)  3. Inspect result and stub call arguments",
+      "data": "stub -> 500, body is HTML (json() throws)",
+      "expected": "{\"status\":500,\"ok\":false,\"errors\":[\"Invalid JSON response\"]}",
+      "actual": "{\"status\":500,\"ok\":false,\"errors\":[\"Invalid JSON response\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W05-05",
+      "uc": "UC-W03 Browse Products / all API calls",
+      "title": "Network failure returns status 0 with message",
+      "objective": "Verify the API request handler builds requests correctly and normalises responses/errors",
+      "pre": "public/api.js loaded; fetch replaced by a Jest stub (no server needed)",
+      "steps": "1. Create stub fetch  2. Call apiRequest(url, options)  3. Inspect result and stub call arguments",
+      "data": "stub throws \"Failed to fetch\"",
+      "expected": "{\"status\":0,\"ok\":false,\"errors\":[\"Network error: Failed to fetch\"]}",
+      "actual": "{\"status\":0,\"ok\":false,\"errors\":[\"Network error: Failed to fetch\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W05-06",
+      "uc": "UC-W03 Browse Products / all API calls",
+      "title": "No Authorization header when token is absent",
+      "objective": "Verify the API request handler builds requests correctly and normalises responses/errors",
+      "pre": "public/api.js loaded; fetch replaced by a Jest stub (no server needed)",
+      "steps": "1. Create stub fetch  2. Call apiRequest(url, options)  3. Inspect result and stub call arguments",
+      "data": "token=undefined",
+      "expected": "undefined (header not set)",
+      "actual": "undefined",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "unit",
+    "id": "UT-M04",
+    "name": "parsePost() / parsePosts() / parseUser() - Data parsing"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-M04-01",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "Post title is capitalised and preview created",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "{id:1, userId:1, title:\"hello world\", body:\"line one\\nline two\"}",
+      "expected": "{\"id\":1,\"userId\":1,\"title\":\"Hello world\",\"body\":\"line one\\nline two\",\"preview\":\"line one line two\"}",
+      "actual": "{\"id\":1,\"userId\":1,\"title\":\"Hello world\",\"body\":\"line one\\nline two\",\"preview\":\"line one line two\"}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M04-02",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "Missing title becomes \"(untitled)\"",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "{id:2, title:\"\", body:\"x\"}",
+      "expected": "\"(untitled)\"",
+      "actual": "\"(untitled)\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M04-03",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "Preview is limited to 60 characters",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "body = \"a\" x 100",
+      "expected": "60",
+      "actual": "60",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M04-04",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "Null post throws \"Invalid post data\"",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "null",
+      "expected": "\"throws: Invalid post data\"",
+      "actual": "\"throws: Invalid post data\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M04-05",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "parsePosts skips entries without id",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "[{id:1,title:\"a\"}, {title:\"no id\"}, null]",
+      "expected": "[1]",
+      "actual": "[1]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M04-06",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "parsePosts rejects non-array input",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "{\"error\":\"x\"}",
+      "expected": "\"throws: Expected an array of posts\"",
+      "actual": "\"throws: Expected an array of posts\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M04-07",
+      "uc": "UC-M02 View Dashboard / UC-M03 Profile",
+      "title": "parseUser fills missing nested fields with N/A",
+      "objective": "Verify raw API JSON is converted into clean app models and bad data is handled",
+      "pre": "parser.js module loaded",
+      "steps": "1. Call parser with raw JSON  2. Compare model with expected",
+      "data": "{id:5, name:\"Sara\"}",
+      "expected": "{\"id\":5,\"name\":\"Sara\",\"email\":\"\",\"city\":\"N/A\",\"company\":\"N/A\"}",
+      "actual": "{\"id\":5,\"name\":\"Sara\",\"email\":\"\",\"city\":\"N/A\",\"company\":\"N/A\"}",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

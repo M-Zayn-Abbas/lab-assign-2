@@ -1,0 +1,105 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "integration",
+    "id": "IT-D01",
+    "name": "Data Input Module <-> Processing Module",
+    "modules": "input_module.py (parse_numbers, parse_edges)  ->  processing.py (build_linked_list, build_bst, build_graph, sort_and_search)  ->  linked_list / bst / graph / sorting",
+    "strategy": "Bottom-Up Integration: the data-structure modules (already unit/component tested) are driven by processing.py, and then by the input parser on top.",
+    "dataPassed": "Raw string \"50, 30, 70\" -> list[int] [50,30,70] -> BST/LinkedList;  \"A-B:4, ...\" -> list[(u, v, w)] -> Graph adjacency dict"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-D01-01",
+      "uc": "UC-D01..UC-D05",
+      "title": "Comma/space separated numbers build a BST",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"50, 30 70,20\"",
+      "expected": "[20, 30, 50, 70]",
+      "actual": "[20, 30, 50, 70]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D01-02",
+      "uc": "UC-D01..UC-D05",
+      "title": "Parsed numbers build a linked list in order",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"3 1 2\"",
+      "expected": "[3, 1, 2]",
+      "actual": "[3, 1, 2]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D01-03",
+      "uc": "UC-D01..UC-D05",
+      "title": "Invalid token is rejected before processing",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"5, x, 3\"",
+      "expected": "\"throws ValueError: Invalid number: 'x'\"",
+      "actual": "\"throws ValueError: Invalid number: 'x'\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D01-04",
+      "uc": "UC-D01..UC-D05",
+      "title": "Edge list input builds weighted graph",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"A-B:4, A-C:1, C-D\"",
+      "expected": "{\"vertices\": [\"A\", \"B\", \"C\", \"D\"], \"edges\": 3, \"weight_A_B\": 4}",
+      "actual": "{\"vertices\": [\"A\", \"B\", \"C\", \"D\"], \"edges\": 3, \"weight_A_B\": 4}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D01-05",
+      "uc": "UC-D01..UC-D05",
+      "title": "Sort + binary search pipeline",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"9 3 7 1\", target 7, quick sort",
+      "expected": "[[1, 3, 7, 9], 2]",
+      "actual": "[[1, 3, 7, 9], 2]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D01-06",
+      "uc": "UC-D01..UC-D05",
+      "title": "Negative edge weight is stopped by graph module",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"A-B:-3\"",
+      "expected": "\"throws ValueError: Negative weights are not supported\"",
+      "actual": "\"throws ValueError: Negative weights are not supported\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D01-07",
+      "uc": "UC-D01..UC-D05",
+      "title": "Malformed edge with extra vertex is rejected",
+      "objective": "Verify raw text input is parsed and correctly handed to the data-structure builders",
+      "pre": "input_module.py and processing.py imported",
+      "steps": "1. Parse raw text  2. Pass parsed data to processing function  3. Check built structure",
+      "data": "\"A-B-C:2\"",
+      "expected": "\"throws ValueError: Invalid edge: 'A-B-C'\"",
+      "actual": "{\"no_error\": true, \"value\": {\"vertices\": [\"A\", \"B\", \"B-C\"], \"edges\": 2, \"weight_A_B\": 1}}",
+      "status": "Fail",
+      "priority": "Medium"
+    }
+  ]
+}

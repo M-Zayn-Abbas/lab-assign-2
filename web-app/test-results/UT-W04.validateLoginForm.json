@@ -1,0 +1,89 @@
+{
+  "project": "web",
+  "group": {
+    "level": "unit",
+    "id": "UT-W04",
+    "name": "validateLoginForm() - Login validation"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-W04-01",
+      "uc": "UC-W02 Login",
+      "title": "Valid email and password pass validation",
+      "objective": "Verify login form validation reports the correct error messages",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateLoginForm({email, password})  2. Compare {valid, errors} with expected",
+      "data": "[{\"email\":\"ali@test.com\",\"password\":\"Secret123\"}]",
+      "expected": "{\"valid\":true,\"errors\":[]}",
+      "actual": "{\"valid\":true,\"errors\":[]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W04-02",
+      "uc": "UC-W02 Login",
+      "title": "Empty email reports \"Email is required\"",
+      "objective": "Verify login form validation reports the correct error messages",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateLoginForm({email, password})  2. Compare {valid, errors} with expected",
+      "data": "[{\"email\":\"\",\"password\":\"Secret123\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Email is required\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Email is required\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W04-03",
+      "uc": "UC-W02 Login",
+      "title": "Malformed email reports \"Invalid email format\"",
+      "objective": "Verify login form validation reports the correct error messages",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateLoginForm({email, password})  2. Compare {valid, errors} with expected",
+      "data": "[{\"email\":\"ali@\",\"password\":\"Secret123\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Invalid email format\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Invalid email format\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W04-04",
+      "uc": "UC-W02 Login",
+      "title": "Empty password reports \"Password is required\"",
+      "objective": "Verify login form validation reports the correct error messages",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateLoginForm({email, password})  2. Compare {valid, errors} with expected",
+      "data": "[{\"email\":\"ali@test.com\",\"password\":\"\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Password is required\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Password is required\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W04-05",
+      "uc": "UC-W02 Login",
+      "title": "Both fields empty report both errors",
+      "objective": "Verify login form validation reports the correct error messages",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateLoginForm({email, password})  2. Compare {valid, errors} with expected",
+      "data": "[{\"email\":\"\",\"password\":\"\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Email is required\",\"Password is required\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Email is required\",\"Password is required\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W04-06",
+      "uc": "UC-W02 Login",
+      "title": "Missing argument object is handled",
+      "objective": "Verify login form validation reports the correct error messages",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateLoginForm({email, password})  2. Compare {valid, errors} with expected",
+      "data": "undefined",
+      "expected": "{\"valid\":false,\"errors\":[\"Email is required\",\"Password is required\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Email is required\",\"Password is required\"]}",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

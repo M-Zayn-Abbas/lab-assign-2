@@ -1,0 +1,102 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "unit",
+    "id": "UT-D06",
+    "name": "Stack / Queue operations (push, pop, peek, enqueue, dequeue)"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-D06-01",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Stack pops in LIFO order",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "push 1,2,3; pop; pop; peek; size",
+      "expected": "[3, 2, 1, 1]",
+      "actual": "[3, 2, 1, 1]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D06-02",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Pop on empty stack raises underflow",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "Stack(); pop()",
+      "expected": "\"throws IndexError: Stack underflow\"",
+      "actual": "\"throws IndexError: Stack underflow\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D06-03",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Push beyond capacity raises overflow",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "Stack(capacity=2); push 1,2,3",
+      "expected": "\"throws OverflowError: Stack overflow\"",
+      "actual": "\"throws OverflowError: Stack overflow\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D06-04",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Queue dequeues in FIFO order",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "enqueue A,B,C; dequeue; front; size",
+      "expected": "[\"A\", \"B\", 2]",
+      "actual": "[\"A\", \"B\", 2]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D06-05",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Circular queue wraps around correctly",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "Queue(3): enqueue 1,2,3; dequeue; enqueue 4",
+      "expected": "[2, 3, 4]",
+      "actual": "[2, 3, 4]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D06-06",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Dequeue on empty queue raises error",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "Queue(3); dequeue()",
+      "expected": "\"throws IndexError: Queue is empty\"",
+      "actual": "\"throws IndexError: Queue is empty\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D06-07",
+      "uc": "UC-D03 Stack & Queue",
+      "title": "Stack application: balanced brackets",
+      "objective": "Verify LIFO/FIFO behaviour, bounds errors and circular queue wrap-around",
+      "pre": "stack_queue.py imported",
+      "steps": "1. Perform operation sequence  2. Compare returned values with expected",
+      "data": "'{[()]}', '(]', '(('",
+      "expected": "[true, false, false]",
+      "actual": "[true, false, false]",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

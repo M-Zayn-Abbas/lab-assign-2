@@ -1,0 +1,89 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "unit",
+    "id": "UT-D05",
+    "name": "Search functions (binary_search / linear_search)"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-D05-01",
+      "uc": "UC-D04 Sort & Search",
+      "title": "Binary search finds middle element",
+      "objective": "Verify search returns the correct index or -1",
+      "pre": "sorting.py imported; sorted array [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]",
+      "steps": "1. Call search(arr, target)  2. Compare index with expected",
+      "data": "target=23",
+      "expected": "5",
+      "actual": "5",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D05-02",
+      "uc": "UC-D04 Sort & Search",
+      "title": "Binary search finds first and last elements",
+      "objective": "Verify search returns the correct index or -1",
+      "pre": "sorting.py imported; sorted array [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]",
+      "steps": "1. Call search(arr, target)  2. Compare index with expected",
+      "data": "target=2, target=91",
+      "expected": "[0, 9]",
+      "actual": "[0, 9]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D05-03",
+      "uc": "UC-D04 Sort & Search",
+      "title": "Binary search returns -1 for missing value",
+      "objective": "Verify search returns the correct index or -1",
+      "pre": "sorting.py imported; sorted array [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]",
+      "steps": "1. Call search(arr, target)  2. Compare index with expected",
+      "data": "target=50",
+      "expected": "-1",
+      "actual": "-1",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D05-04",
+      "uc": "UC-D04 Sort & Search",
+      "title": "Binary search on empty list returns -1",
+      "objective": "Verify search returns the correct index or -1",
+      "pre": "sorting.py imported; sorted array [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]",
+      "steps": "1. Call search(arr, target)  2. Compare index with expected",
+      "data": "arr=[], target=1",
+      "expected": "-1",
+      "actual": "-1",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D05-05",
+      "uc": "UC-D04 Sort & Search",
+      "title": "Linear search returns first occurrence",
+      "objective": "Verify search returns the correct index or -1",
+      "pre": "sorting.py imported; sorted array [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]",
+      "steps": "1. Call search(arr, target)  2. Compare index with expected",
+      "data": "arr=[4,7,7,1], target=7",
+      "expected": "1",
+      "actual": "1",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D05-06",
+      "uc": "UC-D04 Sort & Search",
+      "title": "Linear search works on unsorted list",
+      "objective": "Verify search returns the correct index or -1",
+      "pre": "sorting.py imported; sorted array [2, 5, 8, 12, 16, 23, 38, 56, 72, 91]",
+      "steps": "1. Call search(arr, target)  2. Compare index with expected",
+      "data": "arr=[9,3,6], target=6 / 5",
+      "expected": "[2, -1]",
+      "actual": "[2, -1]",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

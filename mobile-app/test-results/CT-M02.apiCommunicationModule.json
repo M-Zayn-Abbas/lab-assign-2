@@ -1,0 +1,96 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "component",
+    "id": "CT-M02",
+    "name": "API Communication Module",
+    "component": "API Communication Module (src/services/api.js)",
+    "units": [
+      "fetchPosts()",
+      "fetchUser()",
+      "handleApiResponse()",
+      "parsePosts() / parseUser()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-M02-01",
+      "uc": "UC-M02 View Dashboard",
+      "title": "fetchPosts calls the correct URL",
+      "objective": "Verify fetchPosts/fetchUser build correct requests and return parsed models or errors",
+      "pre": "fetch replaced with Jest stub returning jsonplaceholder-shaped data",
+      "steps": "Call fetchPosts/fetchUser with stub fetch",
+      "data": "fetchPosts(userId=1)",
+      "expected": "\"https://jsonplaceholder.typicode.com/posts?userId=1\"",
+      "actual": "\"https://jsonplaceholder.typicode.com/posts?userId=1\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M02-02",
+      "uc": "UC-M02 View Dashboard",
+      "title": "fetchPosts limits and parses results",
+      "objective": "Verify fetchPosts/fetchUser build correct requests and return parsed models or errors",
+      "pre": "fetch replaced with Jest stub returning jsonplaceholder-shaped data",
+      "steps": "Call fetchPosts/fetchUser with stub fetch",
+      "data": "server returns 10 posts, limit=5",
+      "expected": "5 posts, first title \"Post 1\"",
+      "actual": "5 posts, first title \"Post 1\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M02-03",
+      "uc": "UC-M02 View Dashboard",
+      "title": "fetchUser returns parsed user model",
+      "objective": "Verify fetchPosts/fetchUser build correct requests and return parsed models or errors",
+      "pre": "fetch replaced with Jest stub returning jsonplaceholder-shaped data",
+      "steps": "Call fetchPosts/fetchUser with stub fetch",
+      "data": "server returns {id:1, name:\"Leanne Graham\", address:{city:\"Gwenborough\"}, company:{name:\"Romaguera-Crona\"}}",
+      "expected": "{\"id\":1,\"name\":\"Leanne Graham\",\"email\":\"Sincere@april.biz\",\"city\":\"Gwenborough\",\"company\":\"Romaguera-Crona\"}",
+      "actual": "{\"id\":1,\"name\":\"Leanne Graham\",\"email\":\"Sincere@april.biz\",\"city\":\"Gwenborough\",\"company\":\"Romaguera-Crona\"}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M02-04",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Server error is propagated as readable message",
+      "objective": "Verify fetchPosts/fetchUser build correct requests and return parsed models or errors",
+      "pre": "fetch replaced with Jest stub returning jsonplaceholder-shaped data",
+      "steps": "Call fetchPosts/fetchUser with stub fetch",
+      "data": "server returns 500",
+      "expected": "\"throws: Server error (500)\"",
+      "actual": "\"throws: Server error (500)\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M02-05",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Network failure is propagated",
+      "objective": "Verify fetchPosts/fetchUser build correct requests and return parsed models or errors",
+      "pre": "fetch replaced with Jest stub returning jsonplaceholder-shaped data",
+      "steps": "Call fetchPosts/fetchUser with stub fetch",
+      "data": "fetch rejects \"Network request failed\"",
+      "expected": "\"throws: Network request failed\"",
+      "actual": "\"throws: Network request failed\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M02-06",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Malformed items in server list are skipped",
+      "objective": "Verify fetchPosts/fetchUser build correct requests and return parsed models or errors",
+      "pre": "fetch replaced with Jest stub returning jsonplaceholder-shaped data",
+      "steps": "Call fetchPosts/fetchUser with stub fetch",
+      "data": "server returns [{id:1}, {title:\"broken\"}, {id:3}]",
+      "expected": "[1,3]",
+      "actual": "[1,3]",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

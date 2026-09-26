@@ -1,0 +1,102 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "unit",
+    "id": "UT-D01",
+    "name": "LinkedList insert functions (insert_at_head / insert_at_tail / insert_at)"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-D01-01",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Insert at tail of empty list",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "[] + insert_at_tail(5)",
+      "expected": "[5]",
+      "actual": "[5]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D01-02",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Insert at tail keeps order",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "[1,2] + insert_at_tail(3)",
+      "expected": "[1, 2, 3]",
+      "actual": "[1, 2, 3]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D01-03",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Insert at head becomes first element",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "[1,2] + insert_at_head(0)",
+      "expected": "[0, 1, 2]",
+      "actual": "[0, 1, 2]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D01-04",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Insert at middle index",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "[1,2] + insert_at(1, 9)",
+      "expected": "[1, 9, 2]",
+      "actual": "[1, 9, 2]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D01-05",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Insert at index == size appends",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "[1,2] + insert_at(2, 9)",
+      "expected": "[1, 2, 9]",
+      "actual": "[1, 2, 9]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D01-06",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Insert at invalid index raises IndexError",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "[1,2] + insert_at(5, 9)",
+      "expected": "\"throws IndexError: Index out of range\"",
+      "actual": "\"throws IndexError: Index out of range\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D01-07",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Size is updated after inserts",
+      "objective": "Verify nodes are inserted at the correct position and size is updated",
+      "pre": "linked_list.py imported; new LinkedList created per test",
+      "steps": "1. Build list from test data  2. Call insert function  3. Compare to_list() with expected",
+      "data": "insert_at_tail x3",
+      "expected": "3",
+      "actual": "3",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

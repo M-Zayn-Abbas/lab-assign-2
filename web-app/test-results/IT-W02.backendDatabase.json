@@ -1,0 +1,79 @@
+{
+  "project": "web",
+  "group": {
+    "level": "integration",
+    "id": "IT-W02",
+    "name": "Backend API <-> Database",
+    "modules": "src/app.js (routes)  ->  auth / products / orders modules  ->  src/db.js (users, sessions, products, orders tables)",
+    "strategy": "Bottom-Up Integration: db.js and the modules were already verified (unit + component); now the Express routes are integrated on top and checked against the DB state.",
+    "dataPassed": "Route params/JSON body -> module calls -> DB rows (users, sessions, products, orders); DB rows -> JSON responses"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-W02-01",
+      "uc": "UC-W01..UC-W05",
+      "title": "POST /api/register persists a user row with hashed password",
+      "objective": "Verify that API calls read/write the correct records in the database tables",
+      "pre": "DB seeded before each test; requests sent with supertest",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "{name:\"Sara\", email:\"sara@test.com\", password:\"Secret123\"}",
+      "expected": "db.users has 1 row, email \"sara@test.com\", passwordHash != plain password",
+      "actual": "db.users rows=1, email=\"sara@test.com\", passwordHash starts \"45e5862d0ee4...\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W02-02",
+      "uc": "UC-W01..UC-W05",
+      "title": "Login creates a session row; logout deletes it",
+      "objective": "Verify that API calls read/write the correct records in the database tables",
+      "pre": "DB seeded before each test; requests sent with supertest",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "login -> check db.sessions -> POST /api/logout -> check db.sessions",
+      "expected": "{\"sessionsAfterLogin\":1,\"sessionsAfterLogout\":0}",
+      "actual": "{\"sessionsAfterLogin\":1,\"sessionsAfterLogout\":0}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W02-03",
+      "uc": "UC-W01..UC-W05",
+      "title": "DELETE /api/products/:id removes the DB row",
+      "objective": "Verify that API calls read/write the correct records in the database tables",
+      "pre": "DB seeded before each test; requests sent with supertest",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "DELETE /api/products/2 then GET /api/products/2",
+      "expected": "{\"deleteStatus\":200,\"rowsLeft\":2,\"getStatus\":404}",
+      "actual": "{\"deleteStatus\":200,\"rowsLeft\":2,\"getStatus\":404}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-W02-04",
+      "uc": "UC-W01..UC-W05",
+      "title": "GET /api/orders returns only the logged-in user's orders",
+      "objective": "Verify that API calls read/write the correct records in the database tables",
+      "pre": "DB seeded before each test; requests sent with supertest",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "user A orders 1 mouse, user B orders 1 cable; each calls GET /api/orders",
+      "expected": "{\"ordersInDb\":2,\"userA\":[\"Wireless Mouse\"],\"userB\":[\"USB-C Cable\"]}",
+      "actual": "{\"ordersInDb\":2,\"userA\":[\"Wireless Mouse\"],\"userB\":[\"USB-C Cable\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W02-05",
+      "uc": "UC-W01..UC-W05",
+      "title": "Registering the same email twice keeps only one DB row",
+      "objective": "Verify that API calls read/write the correct records in the database tables",
+      "pre": "DB seeded before each test; requests sent with supertest",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "POST /api/register x2 with \"dup@test.com\"",
+      "expected": "{\"secondStatus\":409,\"rows\":1}",
+      "actual": "{\"secondStatus\":409,\"rows\":1}",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

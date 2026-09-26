@@ -1,0 +1,97 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "component",
+    "id": "CT-M03",
+    "name": "Notification Module",
+    "component": "Notification Module (notifications.js + NotificationsScreen.js)",
+    "units": [
+      "generateNotifications()",
+      "markAsRead()",
+      "markAllAsRead()",
+      "unreadCount()",
+      "NotificationsScreen (UI)"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-M03-01",
+      "uc": "UC-M04 View Notifications",
+      "title": "No user means no notifications",
+      "objective": "Verify notifications are generated from user data and read-state is tracked",
+      "pre": "notifications.js loaded; user Ali Khan with 2 posts",
+      "steps": "Generate notifications and apply read actions",
+      "data": "generateNotifications(null)",
+      "expected": "[]",
+      "actual": "[]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M03-02",
+      "uc": "UC-M04 View Notifications",
+      "title": "User without profile gets welcome, complete-profile and posts notifications",
+      "objective": "Verify notifications are generated from user data and read-state is tracked",
+      "pre": "notifications.js loaded; user Ali Khan with 2 posts",
+      "steps": "Generate notifications and apply read actions",
+      "data": "user=Ali, posts=2, profile=null",
+      "expected": "[\"welcome\",\"profile\",\"posts\"]",
+      "actual": "[\"welcome\",\"profile\",\"posts\"]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M03-03",
+      "uc": "UC-M04 View Notifications",
+      "title": "Under-18 profile gets restriction notice",
+      "objective": "Verify notifications are generated from user data and read-state is tracked",
+      "pre": "notifications.js loaded; user Ali Khan with 2 posts",
+      "steps": "Generate notifications and apply read actions",
+      "data": "profile.age=16",
+      "expected": "[\"welcome\",\"posts\",\"minor\"]",
+      "actual": "[\"welcome\",\"posts\",\"minor\"]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M03-04",
+      "uc": "UC-M04 View Notifications",
+      "title": "markAsRead reduces unread count by 1",
+      "objective": "Verify notifications are generated from user data and read-state is tracked",
+      "pre": "notifications.js loaded; user Ali Khan with 2 posts",
+      "steps": "Generate notifications and apply read actions",
+      "data": "3 unread, markAsRead(\"welcome\")",
+      "expected": "{\"before\":3,\"after\":2}",
+      "actual": "{\"before\":3,\"after\":2}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M03-05",
+      "uc": "UC-M04 View Notifications",
+      "title": "markAllAsRead sets unread count to 0",
+      "objective": "Verify notifications are generated from user data and read-state is tracked",
+      "pre": "notifications.js loaded; user Ali Khan with 2 posts",
+      "steps": "Generate notifications and apply read actions",
+      "data": "3 unread, markAllAsRead()",
+      "expected": "0",
+      "actual": "0",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M03-06",
+      "uc": "UC-M04 View Notifications",
+      "title": "Tapping a notification in the UI calls onRead with its id",
+      "objective": "Verify notifications are generated from user data and read-state is tracked",
+      "pre": "notifications.js loaded; user Ali Khan with 2 posts",
+      "steps": "Generate notifications and apply read actions",
+      "data": "render NotificationsScreen, press item \"profile\"",
+      "expected": "[\"profile\"]",
+      "actual": "[\"profile\"]",
+      "status": "Pass",
+      "priority": "High"
+    }
+  ]
+}

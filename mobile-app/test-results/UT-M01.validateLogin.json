@@ -1,0 +1,89 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "unit",
+    "id": "UT-M01",
+    "name": "validateLogin() - Login input validation"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-M01-01",
+      "uc": "UC-M01 Login",
+      "title": "Valid email and password pass",
+      "objective": "Verify login inputs are validated with field-specific error messages",
+      "pre": "validation.js module loaded",
+      "steps": "1. Call validateLogin(email, password)  2. Compare {valid, errors} with expected",
+      "data": "[\"ali@test.com\",\"ali123\"]",
+      "expected": "{\"valid\":true,\"errors\":{}}",
+      "actual": "{\"valid\":true,\"errors\":{}}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M01-02",
+      "uc": "UC-M01 Login",
+      "title": "Empty email reports \"Email is required\"",
+      "objective": "Verify login inputs are validated with field-specific error messages",
+      "pre": "validation.js module loaded",
+      "steps": "1. Call validateLogin(email, password)  2. Compare {valid, errors} with expected",
+      "data": "[\"\",\"ali123\"]",
+      "expected": "{\"valid\":false,\"errors\":{\"email\":\"Email is required\"}}",
+      "actual": "{\"valid\":false,\"errors\":{\"email\":\"Email is required\"}}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M01-03",
+      "uc": "UC-M01 Login",
+      "title": "Whitespace-only email treated as empty",
+      "objective": "Verify login inputs are validated with field-specific error messages",
+      "pre": "validation.js module loaded",
+      "steps": "1. Call validateLogin(email, password)  2. Compare {valid, errors} with expected",
+      "data": "[\"   \",\"ali123\"]",
+      "expected": "{\"valid\":false,\"errors\":{\"email\":\"Email is required\"}}",
+      "actual": "{\"valid\":false,\"errors\":{\"email\":\"Email is required\"}}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M01-04",
+      "uc": "UC-M01 Login",
+      "title": "Malformed email reports \"Invalid email format\"",
+      "objective": "Verify login inputs are validated with field-specific error messages",
+      "pre": "validation.js module loaded",
+      "steps": "1. Call validateLogin(email, password)  2. Compare {valid, errors} with expected",
+      "data": "[\"ali.test.com\",\"ali123\"]",
+      "expected": "{\"valid\":false,\"errors\":{\"email\":\"Invalid email format\"}}",
+      "actual": "{\"valid\":false,\"errors\":{\"email\":\"Invalid email format\"}}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M01-05",
+      "uc": "UC-M01 Login",
+      "title": "Password shorter than 6 chars is rejected",
+      "objective": "Verify login inputs are validated with field-specific error messages",
+      "pre": "validation.js module loaded",
+      "steps": "1. Call validateLogin(email, password)  2. Compare {valid, errors} with expected",
+      "data": "[\"ali@test.com\",\"123\"]",
+      "expected": "{\"valid\":false,\"errors\":{\"password\":\"Password must be at least 6 characters\"}}",
+      "actual": "{\"valid\":false,\"errors\":{\"password\":\"Password must be at least 6 characters\"}}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M01-06",
+      "uc": "UC-M01 Login",
+      "title": "Both fields empty report both errors",
+      "objective": "Verify login inputs are validated with field-specific error messages",
+      "pre": "validation.js module loaded",
+      "steps": "1. Call validateLogin(email, password)  2. Compare {valid, errors} with expected",
+      "data": "[\"\",\"\"]",
+      "expected": "{\"valid\":false,\"errors\":{\"email\":\"Email is required\",\"password\":\"Password is required\"}}",
+      "actual": "{\"valid\":false,\"errors\":{\"email\":\"Email is required\",\"password\":\"Password is required\"}}",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

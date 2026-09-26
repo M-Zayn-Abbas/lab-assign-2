@@ -1,0 +1,102 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "unit",
+    "id": "UT-D03",
+    "name": "BST insert / search / delete functions"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-D03-01",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Insert keeps inorder traversal sorted",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "insert 50,30,70,20,40",
+      "expected": "[20, 30, 40, 50, 70]",
+      "actual": "[20, 30, 40, 50, 70]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D03-02",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Duplicate insert is ignored",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "insert 50,30 then insert(30)",
+      "expected": "{\"inserted\": false, \"size\": 2}",
+      "actual": "{\"inserted\": false, \"size\": 2}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D03-03",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Search finds existing and rejects missing key",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "tree 50,30,70; search(70), search(65)",
+      "expected": "[true, false]",
+      "actual": "[true, false]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D03-04",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Delete leaf node",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "tree 50,30,70,20; delete(20)",
+      "expected": "{\"deleted\": true, \"inorder\": [30, 50, 70], \"root\": 50}",
+      "actual": "{\"deleted\": true, \"inorder\": [30, 50, 70], \"root\": 50}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D03-05",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Delete node with one child",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "tree 50,30,20; delete(30)",
+      "expected": "{\"deleted\": true, \"inorder\": [20, 50], \"root\": 50}",
+      "actual": "{\"deleted\": true, \"inorder\": [20, 50], \"root\": 50}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D03-06",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Delete root with two children uses inorder successor",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "tree 50,30,70,60,80; delete(50)",
+      "expected": "{\"deleted\": true, \"inorder\": [30, 60, 70, 80], \"root\": 60}",
+      "actual": "{\"deleted\": true, \"inorder\": [30, 60, 70, 80], \"root\": 60}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D03-07",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Delete missing key returns False",
+      "objective": "Verify BST insertion ordering, search, and all three delete cases",
+      "pre": "bst.py imported; tree built from test data",
+      "steps": "1. Build BST  2. Call insert/search/delete  3. Compare result / inorder traversal",
+      "data": "tree 50,30; delete(99)",
+      "expected": "{\"deleted\": false, \"inorder\": [30, 50], \"root\": 50}",
+      "actual": "{\"deleted\": false, \"inorder\": [30, 50], \"root\": 50}",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

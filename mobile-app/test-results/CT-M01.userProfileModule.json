@@ -1,0 +1,97 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "component",
+    "id": "CT-M01",
+    "name": "User Profile Module",
+    "component": "User Profile Module (ProfileScreen.js + validation.js + storage callbacks)",
+    "units": [
+      "ProfileScreen (UI)",
+      "validateProfile()",
+      "handleSave() click handler",
+      "onSave -> saveProfile()",
+      "onClear -> clearProfile()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-M01-01",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Screen pre-fills name from logged-in user",
+      "objective": "Verify the profile screen, its validation and save/clear actions work together",
+      "pre": "ProfileScreen rendered with user Ali Khan; onSave/onClear are Jest spies",
+      "steps": "Render screen, type into inputs, press buttons",
+      "data": "user.name=\"Ali Khan\", profile=null",
+      "expected": "\"Ali Khan\"",
+      "actual": "\"Ali Khan\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M01-02",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Server data from API user is displayed",
+      "objective": "Verify the profile screen, its validation and save/clear actions work together",
+      "pre": "ProfileScreen rendered with user Ali Khan; onSave/onClear are Jest spies",
+      "steps": "Render screen, type into inputs, press buttons",
+      "data": "apiUser.city=\"Gwenborough\", company=\"Romaguera-Crona\"",
+      "expected": "\"Server data: Gwenborough · Romaguera-Crona\"",
+      "actual": "\"Server data: Gwenborough · Romaguera-Crona\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M01-03",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Invalid age shows error and does not save",
+      "objective": "Verify the profile screen, its validation and save/clear actions work together",
+      "pre": "ProfileScreen rendered with user Ali Khan; onSave/onClear are Jest spies",
+      "steps": "Render screen, type into inputs, press buttons",
+      "data": "name=\"Ali\", age=\"abc\", phone=\"03001234567\" -> press Save",
+      "expected": "error \"Age must be a whole number between 1 and 120\" shown; onSave not called",
+      "actual": "{\"errorShown\":true,\"saveCalls\":0}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M01-04",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Valid data is saved and success message shown",
+      "objective": "Verify the profile screen, its validation and save/clear actions work together",
+      "pre": "ProfileScreen rendered with user Ali Khan; onSave/onClear are Jest spies",
+      "steps": "Render screen, type into inputs, press buttons",
+      "data": "name=\"Ali Raza\", age=\"23\", phone=\"03211234567\" -> press Save",
+      "expected": "onSave({name:\"Ali Raza\", age:23, phone:\"03211234567\"}); message \"Profile saved to device storage\"",
+      "actual": "{\"savedWith\":{\"name\":\"Ali Raza\",\"age\":23,\"phone\":\"03211234567\"},\"message\":\"Profile saved to device storage\"}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-M01-05",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Clear button clears profile and confirms",
+      "objective": "Verify the profile screen, its validation and save/clear actions work together",
+      "pre": "ProfileScreen rendered with user Ali Khan; onSave/onClear are Jest spies",
+      "steps": "Render screen, type into inputs, press buttons",
+      "data": "press \"Clear Saved Profile\"",
+      "expected": "{\"clearCalls\":1,\"message\":\"Profile cleared\"}",
+      "actual": "{\"clearCalls\":1,\"message\":\"Profile cleared\"}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-M01-06",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Saved profile values are shown when screen opens",
+      "objective": "Verify the profile screen, its validation and save/clear actions work together",
+      "pre": "ProfileScreen rendered with user Ali Khan; onSave/onClear are Jest spies",
+      "steps": "Render screen, type into inputs, press buttons",
+      "data": "profile={name:\"Ali\", age:22, phone:\"03001234567\"}",
+      "expected": "{\"name\":\"Ali\",\"age\":\"22\",\"phone\":\"03001234567\"}",
+      "actual": "{\"name\":\"Ali\",\"age\":\"22\",\"phone\":\"03001234567\"}",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

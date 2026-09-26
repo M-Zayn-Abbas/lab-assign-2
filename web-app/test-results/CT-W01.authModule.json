@@ -1,0 +1,112 @@
+{
+  "project": "web",
+  "group": {
+    "level": "component",
+    "id": "CT-W01",
+    "name": "Authentication Module",
+    "component": "Authentication Module (src/modules/auth.js)",
+    "units": [
+      "validateRegisterForm()",
+      "validateLoginForm()",
+      "hashPassword()",
+      "verifyPassword()",
+      "generateToken()",
+      "findUserByEmail() (DB check)",
+      "getUserByToken()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-W01-01",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Register a new valid user",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "{\"name\":\"Ali Khan\",\"email\":\"ali@test.com\",\"password\":\"Secret123\"}",
+      "expected": "status 201, returned user has id/name/email and NO passwordHash",
+      "actual": "status 201, user={\"id\":1,\"name\":\"Ali Khan\",\"email\":\"ali@test.com\"}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W01-02",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Registering an already used email is rejected",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "register ALI twice",
+      "expected": "{\"ok\":false,\"status\":409,\"errors\":[\"Email already registered\"]}",
+      "actual": "{\"ok\":false,\"status\":409,\"errors\":[\"Email already registered\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W01-03",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Duplicate check is case-insensitive",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "register ali@test.com, then ALI@TEST.COM",
+      "expected": "{\"ok\":false,\"status\":409,\"errors\":[\"Email already registered\"]}",
+      "actual": "{\"ok\":false,\"status\":409,\"errors\":[\"Email already registered\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W01-04",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Password is stored hashed, never in plain text",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "register ALI then read db.users[0]",
+      "expected": "passwordHash != \"Secret123\" and has salt:hash format",
+      "actual": "passwordHash=\"682c06e41678d44bfaf0...\" (length 97)",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W01-05",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Login with correct credentials returns token and session",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "register ALI, login ali@test.com / Secret123",
+      "expected": "status 200, 48-char token, getUserByToken(token) returns Ali",
+      "actual": "status 200, token length 48, session user=Ali Khan",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W01-06",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Login with wrong password is rejected",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "login ali@test.com / Wrong1234",
+      "expected": "{\"ok\":false,\"status\":401,\"errors\":[\"Invalid email or password\"]}",
+      "actual": "{\"ok\":false,\"status\":401,\"errors\":[\"Invalid email or password\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W01-07",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Logout invalidates the session token",
+      "objective": "Verify register + login + session handling work together inside the auth module",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "login, then logout(token), then getUserByToken(token)",
+      "expected": "{\"loggedOut\":true,\"userAfter\":null}",
+      "actual": "{\"loggedOut\":true,\"userAfter\":null}",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

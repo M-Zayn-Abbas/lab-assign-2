@@ -1,0 +1,89 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "component",
+    "id": "CT-D02",
+    "name": "Tree Operations Module",
+    "component": "Tree Operations Module (dsa/bst.py)",
+    "units": [
+      "TreeNode",
+      "insert()",
+      "search()",
+      "delete()/_delete()",
+      "inorder()",
+      "preorder()",
+      "postorder()",
+      "height()",
+      "min()",
+      "max()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-D02-01",
+      "uc": "UC-D02 Tree Operations",
+      "title": "All three traversals of a balanced tree",
+      "objective": "Verify BST operations work together (build, traverse, measure, delete) for normal and edge inputs",
+      "pre": "bst.py imported",
+      "steps": "Build tree from Test Data and run the listed operations",
+      "data": "[50, 30, 70, 20, 40, 60, 80]",
+      "expected": "{\"inorder\": [20, 30, 40, 50, 60, 70, 80], \"preorder\": [50, 30, 20, 40, 70, 60, 80], \"postorder\": [20, 40, 30, 60, 80, 70, 50]}",
+      "actual": "{\"inorder\": [20, 30, 40, 50, 60, 70, 80], \"preorder\": [50, 30, 20, 40, 70, 60, 80], \"postorder\": [20, 40, 30, 60, 80, 70, 50]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-D02-02",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Height, min, max and size",
+      "objective": "Verify BST operations work together (build, traverse, measure, delete) for normal and edge inputs",
+      "pre": "bst.py imported",
+      "steps": "Build tree from Test Data and run the listed operations",
+      "data": "[50, 30, 70, 20, 40, 60, 80]",
+      "expected": "{\"height\": 2, \"min\": 20, \"max\": 80, \"size\": 7}",
+      "actual": "{\"height\": 2, \"min\": 20, \"max\": 80, \"size\": 7}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D02-03",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Random deletes keep BST property",
+      "objective": "Verify BST operations work together (build, traverse, measure, delete) for normal and edge inputs",
+      "pre": "bst.py imported",
+      "steps": "Build tree from Test Data and run the listed operations",
+      "data": "60 random keys (seed 1), delete every 3rd",
+      "expected": "{\"sorted\": true, \"size\": 40, \"expected_size\": 40}",
+      "actual": "{\"sorted\": true, \"size\": 40, \"expected_size\": 40}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-D02-04",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Empty tree edge cases",
+      "objective": "Verify BST operations work together (build, traverse, measure, delete) for normal and edge inputs",
+      "pre": "bst.py imported",
+      "steps": "Build tree from Test Data and run the listed operations",
+      "data": "BST() -> height, inorder, min",
+      "expected": "[-1, [], \"throws ValueError: Tree is empty\"]",
+      "actual": "[-1, [], \"throws ValueError: Tree is empty\"]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D02-05",
+      "uc": "UC-D02 Tree Operations",
+      "title": "Height of degenerate tree built from sorted input",
+      "objective": "Verify BST operations work together (build, traverse, measure, delete) for normal and edge inputs",
+      "pre": "bst.py imported",
+      "steps": "Build tree from Test Data and run the listed operations",
+      "data": "insert 1..1500 in ascending order, call height()",
+      "expected": "1499",
+      "actual": "Threw error: RecursionError: maximum recursion depth exceeded",
+      "status": "Fail",
+      "priority": "High"
+    }
+  ]
+}

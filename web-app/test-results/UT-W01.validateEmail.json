@@ -1,0 +1,102 @@
+{
+  "project": "web",
+  "group": {
+    "level": "unit",
+    "id": "UT-W01",
+    "name": "validateEmail() - Email format checker"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-W01-01",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Valid email is accepted",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[\"ali@test.com\"]",
+      "expected": "true",
+      "actual": "true",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W01-02",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Email without @ is rejected",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[\"alitest.com\"]",
+      "expected": "false",
+      "actual": "false",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W01-03",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Email without top-level domain is rejected",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[\"ali@test\"]",
+      "expected": "false",
+      "actual": "false",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W01-04",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Email containing a space is rejected",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[\"ali @test.com\"]",
+      "expected": "false",
+      "actual": "false",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W01-05",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Non-string input (number) is rejected",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[12345]",
+      "expected": "false",
+      "actual": "false",
+      "status": "Pass",
+      "priority": "Low"
+    },
+    {
+      "id": "UT-W01-06",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Leading/trailing spaces are trimmed",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[\"  ALI@Test.COM  \"]",
+      "expected": "true",
+      "actual": "true",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W01-07",
+      "uc": "UC-W01 Register / UC-W02 Login",
+      "title": "Domain with consecutive dots is rejected",
+      "objective": "Verify the email format checker accepts only well-formed email addresses",
+      "pre": "validators.js module loaded",
+      "steps": "1. Call validateEmail(input)  2. Compare returned boolean with expected",
+      "data": "[\"ali@test..com\"]",
+      "expected": "false",
+      "actual": "true",
+      "status": "Fail",
+      "priority": "Medium"
+    }
+  ]
+}

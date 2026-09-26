@@ -1,0 +1,102 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "unit",
+    "id": "UT-D02",
+    "name": "LinkedList delete / search functions"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-D02-01",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Delete head node",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[1,2,3] delete(1)",
+      "expected": "{\"deleted\": true, \"list\": [2, 3], \"size\": 2}",
+      "actual": "{\"deleted\": true, \"list\": [2, 3], \"size\": 2}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D02-02",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Delete middle node",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[1,2,3] delete(2)",
+      "expected": "{\"deleted\": true, \"list\": [1, 3], \"size\": 2}",
+      "actual": "{\"deleted\": true, \"list\": [1, 3], \"size\": 2}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D02-03",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Delete value not present leaves list unchanged",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[1,2,3] delete(7)",
+      "expected": "{\"deleted\": false, \"list\": [1, 2, 3], \"size\": 3}",
+      "actual": "{\"deleted\": false, \"list\": [1, 2, 3], \"size\": 3}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D02-04",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Delete removes only first duplicate",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[4,5,4] delete(4)",
+      "expected": "{\"deleted\": true, \"list\": [5, 4], \"size\": 2}",
+      "actual": "{\"deleted\": true, \"list\": [5, 4], \"size\": 2}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D02-05",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "delete_at on empty list raises IndexError",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[] delete_at(0)",
+      "expected": "\"throws IndexError: Index out of range\"",
+      "actual": "\"throws IndexError: Index out of range\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-D02-06",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Search returns index of existing value",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[10,20,30] search(30)",
+      "expected": "2",
+      "actual": "2",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-D02-07",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Search for missing value returns -1",
+      "objective": "Verify delete removes the right node and search returns the correct index",
+      "pre": "linked_list.py imported; list built from test data",
+      "steps": "1. Build list  2. Call delete(value)/delete_at(i)/search(value)  3. Compare result and list contents",
+      "data": "[10,20,30] search(99)",
+      "expected": "-1",
+      "actual": "-1",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

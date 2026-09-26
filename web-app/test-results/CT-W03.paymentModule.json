@@ -1,0 +1,83 @@
+{
+  "project": "web",
+  "group": {
+    "level": "component",
+    "id": "CT-W03",
+    "name": "Payment Module",
+    "component": "Payment Module (src/modules/payment.js)",
+    "units": [
+      "validateCard()",
+      "luhnCheck()",
+      "processPayment()",
+      "payments table (db.payments)"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-W03-01",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Valid card payment succeeds",
+      "objective": "Verify the mock payment gateway validates cards, charges, declines and records payments",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "amount=3000, card 4242...4242",
+      "expected": "ok=true, status 200, payment.status=\"SUCCESS\", last4=\"4242\"",
+      "actual": "ok=true, status 200, payment.status=\"SUCCESS\", last4=\"4242\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W03-02",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Bank-declined card returns 402 and is recorded as DECLINED",
+      "objective": "Verify the mock payment gateway validates cards, charges, declines and records payments",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "amount=3000, card 4000000000000002",
+      "expected": "status 402, \"Payment declined by bank\", db.payments[0].status=\"DECLINED\"",
+      "actual": "status 402, [\"Payment declined by bank\"], stored status=\"DECLINED\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W03-03",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Zero amount is rejected before contacting gateway",
+      "objective": "Verify the mock payment gateway validates cards, charges, declines and records payments",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "amount=0",
+      "expected": "{\"ok\":false,\"status\":400,\"errors\":[\"Amount must be a positive number\"]}",
+      "actual": "{\"ok\":false,\"status\":400,\"errors\":[\"Amount must be a positive number\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W03-04",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Expired card is rejected and nothing is recorded",
+      "objective": "Verify the mock payment gateway validates cards, charges, declines and records payments",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "amount=500, expiry=\"01/21\"",
+      "expected": "{\"status\":400,\"errors\":[\"Card has expired\"],\"paymentsStored\":0}",
+      "actual": "{\"status\":400,\"errors\":[\"Card has expired\"],\"paymentsStored\":0}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W03-05",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Full card number is never stored (only last 4 digits)",
+      "objective": "Verify the mock payment gateway validates cards, charges, declines and records payments",
+      "pre": "In-memory DB reset before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "successful payment, inspect db.payments[0]",
+      "expected": "stored keys = id, amount, last4, status, createdAt (no cardNumber / cvv)",
+      "actual": "[\"id\",\"amount\",\"last4\",\"status\",\"createdAt\"]",
+      "status": "Pass",
+      "priority": "High"
+    }
+  ]
+}

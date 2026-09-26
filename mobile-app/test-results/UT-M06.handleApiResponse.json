@@ -1,0 +1,89 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "unit",
+    "id": "UT-M06",
+    "name": "handleApiResponse() - API response handler"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-M06-01",
+      "uc": "UC-M02 View Dashboard",
+      "title": "200 OK returns parsed JSON",
+      "objective": "Verify HTTP responses are turned into data or meaningful error messages",
+      "pre": "api.js module loaded; fake Response objects",
+      "steps": "1. Build fake response  2. Call handleApiResponse(response)  3. Compare result/error",
+      "data": "status 200, body [{id:1}]",
+      "expected": "[{\"id\":1}]",
+      "actual": "[{\"id\":1}]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M06-02",
+      "uc": "UC-M02 View Dashboard",
+      "title": "404 gives \"Resource not found (404)\"",
+      "objective": "Verify HTTP responses are turned into data or meaningful error messages",
+      "pre": "api.js module loaded; fake Response objects",
+      "steps": "1. Build fake response  2. Call handleApiResponse(response)  3. Compare result/error",
+      "data": "status 404",
+      "expected": "\"throws: Resource not found (404)\"",
+      "actual": "\"throws: Resource not found (404)\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M06-03",
+      "uc": "UC-M02 View Dashboard",
+      "title": "500 gives \"Server error (500)\"",
+      "objective": "Verify HTTP responses are turned into data or meaningful error messages",
+      "pre": "api.js module loaded; fake Response objects",
+      "steps": "1. Build fake response  2. Call handleApiResponse(response)  3. Compare result/error",
+      "data": "status 500",
+      "expected": "\"throws: Server error (500)\"",
+      "actual": "\"throws: Server error (500)\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M06-04",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Other 4xx gives generic \"Request failed\"",
+      "objective": "Verify HTTP responses are turned into data or meaningful error messages",
+      "pre": "api.js module loaded; fake Response objects",
+      "steps": "1. Build fake response  2. Call handleApiResponse(response)  3. Compare result/error",
+      "data": "status 401",
+      "expected": "\"throws: Request failed (401)\"",
+      "actual": "\"throws: Request failed (401)\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M06-05",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Invalid JSON body is reported",
+      "objective": "Verify HTTP responses are turned into data or meaningful error messages",
+      "pre": "api.js module loaded; fake Response objects",
+      "steps": "1. Build fake response  2. Call handleApiResponse(response)  3. Compare result/error",
+      "data": "status 200, body \"<html>\"",
+      "expected": "\"throws: Invalid JSON in response\"",
+      "actual": "\"throws: Invalid JSON in response\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M06-06",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Missing response is reported",
+      "objective": "Verify HTTP responses are turned into data or meaningful error messages",
+      "pre": "api.js module loaded; fake Response objects",
+      "steps": "1. Build fake response  2. Call handleApiResponse(response)  3. Compare result/error",
+      "data": "undefined",
+      "expected": "\"throws: No response from server\"",
+      "actual": "\"throws: No response from server\"",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "project": "web",
+  "group": {
+    "level": "integration",
+    "id": "IT-W01",
+    "name": "Frontend (API handler) <-> Backend REST API",
+    "modules": "public/api.js (apiRequest) + public/main.js  <->  src/app.js (Express routes) -> auth/products modules",
+    "strategy": "Top-Down Integration: the top layer (frontend API handler) is tested first against the real backend routes; the DB is replaced by the seeded in-memory store (stub).",
+    "dataPassed": "HTTP JSON requests (method, JSON body, Bearer token)  ->  JSON responses {ok, status, products|token|user|errors}"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-W01-01",
+      "uc": "UC-W01..UC-W03",
+      "title": "Frontend loads product list from backend",
+      "objective": "Verify the frontend request handler and the Express backend exchange data correctly over real HTTP",
+      "pre": "Express server started on random port; DB seeded with 3 products",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "GET /api/products",
+      "expected": "status 200, 3 products (Wireless Mouse, Mechanical Keyboard, USB-C Cable)",
+      "actual": "status 200, 3 products (Wireless Mouse, Mechanical Keyboard, USB-C Cable)",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W01-02",
+      "uc": "UC-W01..UC-W03",
+      "title": "Register + login through frontend returns a session token",
+      "objective": "Verify the frontend request handler and the Express backend exchange data correctly over real HTTP",
+      "pre": "Express server started on random port; DB seeded with 3 products",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "POST /api/register {Ali}, POST /api/login",
+      "expected": "register 201; login 200 with 48-char token and user.name=\"Ali Khan\"",
+      "actual": "register 201; login 200, token length 48, user.name=\"Ali Khan\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W01-03",
+      "uc": "UC-W01..UC-W03",
+      "title": "Backend validation errors reach the frontend unchanged",
+      "objective": "Verify the frontend request handler and the Express backend exchange data correctly over real HTTP",
+      "pre": "Express server started on random port; DB seeded with 3 products",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "POST /api/register {email:\"bad\", password:\"123\"}",
+      "expected": "status 400 with name, email and password error messages",
+      "actual": "status 400, errors=[\"Name must be at least 2 characters\",\"Invalid email format\",\"Password must be at least 8 characters\",\"Password must contain an uppercase letter\",\"Password must contain a lowercase letter\"]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-W01-04",
+      "uc": "UC-W01..UC-W03",
+      "title": "Protected endpoint without token is refused",
+      "objective": "Verify the frontend request handler and the Express backend exchange data correctly over real HTTP",
+      "pre": "Express server started on random port; DB seeded with 3 products",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "POST /api/products (no token)",
+      "expected": "{\"status\":401,\"ok\":false,\"errors\":[\"Unauthorized\"]}",
+      "actual": "{\"status\":401,\"ok\":false,\"errors\":[\"Unauthorized\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W01-05",
+      "uc": "UC-W01..UC-W03",
+      "title": "Product added via frontend appears in the list",
+      "objective": "Verify the frontend request handler and the Express backend exchange data correctly over real HTTP",
+      "pre": "Express server started on random port; DB seeded with 3 products",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "login, POST /api/products {Monitor, 30000, 3}, GET /api/products?search=mon",
+      "expected": "POST 201, search returns [Monitor]",
+      "actual": "POST 201, search returns [\"Monitor\"]",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

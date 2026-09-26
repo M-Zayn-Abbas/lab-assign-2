@@ -1,0 +1,111 @@
+{
+  "project": "web",
+  "group": {
+    "level": "component",
+    "id": "CT-W02",
+    "name": "Product Module",
+    "component": "Product Module (src/modules/products.js)",
+    "units": [
+      "validateProductForm()",
+      "addProduct()",
+      "listProducts()",
+      "getProduct()",
+      "deleteProduct()",
+      "reduceStock()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-W02-01",
+      "uc": "UC-W03 Manage Products",
+      "title": "Add a valid product",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "{name:\"Monitor\", price:30000, stock:3}",
+      "expected": "{\"ok\":true,\"status\":201,\"product\":{\"id\":4,\"name\":\"Monitor\",\"price\":30000,\"stock\":3}}",
+      "actual": "{\"ok\":true,\"status\":201,\"product\":{\"id\":4,\"name\":\"Monitor\",\"price\":30000,\"stock\":3}}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W02-02",
+      "uc": "UC-W03 Manage Products",
+      "title": "Add product with invalid price and stock is rejected",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "{name:\"Bad\", price:-5, stock:1.5}",
+      "expected": "{\"ok\":false,\"status\":400,\"errors\":[\"Price must be a positive number\",\"Stock must be a non-negative integer\"]}",
+      "actual": "{\"ok\":false,\"status\":400,\"errors\":[\"Price must be a positive number\",\"Stock must be a non-negative integer\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W02-03",
+      "uc": "UC-W03 Manage Products",
+      "title": "Search products by partial name (case-insensitive)",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "search=\"KEY\"",
+      "expected": "[\"Mechanical Keyboard\"]",
+      "actual": "[\"Mechanical Keyboard\"]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W02-04",
+      "uc": "UC-W03 Manage Products",
+      "title": "Delete existing product removes it",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "deleteProduct(2) then getProduct(2)",
+      "expected": "{\"status\":200,\"deleted\":\"Mechanical Keyboard\",\"after\":null}",
+      "actual": "{\"status\":200,\"deleted\":\"Mechanical Keyboard\",\"after\":null}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-W02-05",
+      "uc": "UC-W03 Manage Products",
+      "title": "Delete non-existent product returns 404",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "deleteProduct(99)",
+      "expected": "{\"ok\":false,\"status\":404,\"errors\":[\"Product not found\"]}",
+      "actual": "{\"ok\":false,\"status\":404,\"errors\":[\"Product not found\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W02-06",
+      "uc": "UC-W03 Manage Products",
+      "title": "Reducing stock beyond availability throws",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "reduceStock(1, 11) (stock=10)",
+      "expected": "\"throws: Insufficient stock for Wireless Mouse\"",
+      "actual": "\"throws: Insufficient stock for Wireless Mouse\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-W02-07",
+      "uc": "UC-W03 Manage Products",
+      "title": "Product name containing HTML/script is rejected",
+      "objective": "Verify add / view / search / delete / stock operations of the product module",
+      "pre": "DB seeded with 3 products (Mouse, Keyboard, Cable) before each test",
+      "steps": "1. Prepare state (see Preconditions)  2. Perform the actions listed in Test Data  3. Compare the output with Expected Result",
+      "data": "{name:\"<img src=x onerror=alert(1)>\", price:10, stock:1}",
+      "expected": "status 400 (markup rejected, prevents stored XSS in product table)",
+      "actual": "status 201, product stored with name \"<img src=x onerror=alert(1)>\"",
+      "status": "Fail",
+      "priority": "High"
+    }
+  ]
+}

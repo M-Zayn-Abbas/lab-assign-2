@@ -1,0 +1,105 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "integration",
+    "id": "IT-D02",
+    "name": "Algorithm Module <-> Output Visualization",
+    "modules": "linked_list / bst / graph / sorting (via processing.py)  ->  visualizer.py (render_linked_list, render_tree, render_graph, render_path, render_bars)",
+    "strategy": "Incremental Integration: each algorithm module was connected to its renderer one at a time (list, tree, graph, path, bars) and re-tested after each addition.",
+    "dataPassed": "LinkedList / BST / Graph objects, (distance, path) tuples and sorted lists  ->  multi-line text strings"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-D02-01",
+      "uc": "UC-D01..UC-D05",
+      "title": "Linked list rendered with arrows",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "[1,2,3]",
+      "expected": "\"HEAD -> 1 -> 2 -> 3 -> None\"",
+      "actual": "\"HEAD -> 1 -> 2 -> 3 -> None\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D02-02",
+      "uc": "UC-D01..UC-D05",
+      "title": "BST rendered sideways",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "[50,30,70]",
+      "expected": "\"    70\\n50\\n    30\"",
+      "actual": "\"    70\\n50\\n    30\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D02-03",
+      "uc": "UC-D01..UC-D05",
+      "title": "Graph rendered as adjacency list",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "A-B:4, A-C:1, C-B:2, B-D:5",
+      "expected": "\"A: B(4), C(1)\\nB: A(4), C(2), D(5)\\nC: A(1), B(2)\\nD: B(5)\"",
+      "actual": "\"A: B(4), C(1)\\nB: A(4), C(2), D(5)\\nC: A(1), B(2)\\nD: B(5)\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D02-04",
+      "uc": "UC-D01..UC-D05",
+      "title": "Dijkstra result rendered as path",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "dijkstra('A','D') on graph above",
+      "expected": "\"A -> C -> B -> D  (total distance: 8)\"",
+      "actual": "\"A -> C -> B -> D  (total distance: 8)\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D02-05",
+      "uc": "UC-D01..UC-D05",
+      "title": "Sorted array rendered as bar chart",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "merge sort [3,1,2]",
+      "expected": "\"    1 | #\\n    2 | ##\\n    3 | ###\"",
+      "actual": "\"    1 | #\\n    2 | ##\\n    3 | ###\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D02-06",
+      "uc": "UC-D01..UC-D05",
+      "title": "Empty structures show placeholder text",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "empty list, empty tree, empty graph",
+      "expected": "[\"HEAD -> None\", \"(empty tree)\", \"(empty graph)\"]",
+      "actual": "[\"HEAD -> None\", \"(empty tree)\", \"(empty graph)\"]",
+      "status": "Pass",
+      "priority": "Low"
+    },
+    {
+      "id": "IT-D02-07",
+      "uc": "UC-D01..UC-D05",
+      "title": "Large values fit the terminal width (<= 80 cols)",
+      "objective": "Verify algorithm/data-structure outputs are rendered correctly by the visualizer",
+      "pre": "processing.py and visualizer.py imported",
+      "steps": "1. Run algorithm on Test Data  2. Pass result to visualizer  3. Compare rendered text",
+      "data": "render_bars([5, 1000])",
+      "expected": "every line <= 80 characters (bars scaled)",
+      "actual": "longest line = 1008 characters",
+      "status": "Fail",
+      "priority": "Medium"
+    }
+  ]
+}

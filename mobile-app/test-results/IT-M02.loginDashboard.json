@@ -1,0 +1,79 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "integration",
+    "id": "IT-M02",
+    "name": "Login Module <-> Dashboard",
+    "modules": "LoginScreen + auth.js (login)  ->  App.js (session state + storage.saveSession)  ->  DashboardScreen / ProfileScreen (logout)",
+    "strategy": "Incremental Integration: Login module was integrated with App state first, then Dashboard, then session storage and logout were added one at a time, re-testing after each addition.",
+    "dataPassed": "Login -> App: user {userId, email, name};  App -> Storage: \"session\" JSON;  App -> Dashboard: user prop (name shown in greeting)"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-M02-01",
+      "uc": "UC-M01 Login / UC-M02 Dashboard",
+      "title": "Wrong password keeps user on Login screen",
+      "objective": "Verify successful login hands the user/session to the Dashboard and logout returns to Login",
+      "pre": "Storage cleared; fake API server installed",
+      "steps": "Render <App/>, perform login/logout flows",
+      "data": "ali@test.com / wrong99",
+      "expected": "{\"error\":\"Invalid email or password\",\"dashboardVisible\":false}",
+      "actual": "{\"error\":\"Invalid email or password\",\"dashboardVisible\":false}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M02-02",
+      "uc": "UC-M01 Login / UC-M02 Dashboard",
+      "title": "Valid login opens Dashboard with user name",
+      "objective": "Verify successful login hands the user/session to the Dashboard and logout returns to Login",
+      "pre": "Storage cleared; fake API server installed",
+      "steps": "Render <App/>, perform login/logout flows",
+      "data": "ali@test.com / ali123",
+      "expected": "\"Hello, Ali Khan\"",
+      "actual": "\"Hello, Ali Khan\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M02-03",
+      "uc": "UC-M01 Login / UC-M02 Dashboard",
+      "title": "Login stores the session on the device",
+      "objective": "Verify successful login hands the user/session to the Dashboard and logout returns to Login",
+      "pre": "Storage cleared; fake API server installed",
+      "steps": "Render <App/>, perform login/logout flows",
+      "data": "login ali, read AsyncStorage[\"session\"]",
+      "expected": "{\"userId\":1,\"email\":\"ali@test.com\",\"name\":\"Ali Khan\"}",
+      "actual": "{\"userId\":1,\"email\":\"ali@test.com\",\"name\":\"Ali Khan\"}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-M02-04",
+      "uc": "UC-M01 Login / UC-M02 Dashboard",
+      "title": "Logout returns to Login screen and clears session",
+      "objective": "Verify successful login hands the user/session to the Dashboard and logout returns to Login",
+      "pre": "Storage cleared; fake API server installed",
+      "steps": "Render <App/>, perform login/logout flows",
+      "data": "login -> Profile tab -> Logout",
+      "expected": "{\"loginVisible\":true,\"session\":null}",
+      "actual": "{\"loginVisible\":true,\"session\":null}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M02-05",
+      "uc": "UC-M01 Login / UC-M02 Dashboard",
+      "title": "Re-opening the app with a saved session skips Login",
+      "objective": "Verify successful login hands the user/session to the Dashboard and logout returns to Login",
+      "pre": "Storage cleared; fake API server installed",
+      "steps": "Render <App/>, perform login/logout flows",
+      "data": "AsyncStorage[\"session\"] = Sara; render App",
+      "expected": "\"Hello, Sara Ahmed\"",
+      "actual": "\"Hello, Sara Ahmed\"",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

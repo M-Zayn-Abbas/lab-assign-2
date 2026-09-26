@@ -1,0 +1,89 @@
+{
+  "project": "web",
+  "group": {
+    "level": "unit",
+    "id": "UT-W06",
+    "name": "validateCard() - Payment card validation (Luhn)"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-W06-01",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Valid Visa test card passes",
+      "objective": "Verify card number (Luhn), expiry (MM/YY, not expired) and CVV validation",
+      "pre": "validators.js module loaded; system date 2026",
+      "steps": "1. Call validateCard({cardNumber, expiry, cvv})  2. Compare {valid, errors} with expected",
+      "data": "[{\"cardNumber\":\"4242424242424242\",\"expiry\":\"12/30\",\"cvv\":\"123\"}]",
+      "expected": "{\"valid\":true,\"errors\":[]}",
+      "actual": "{\"valid\":true,\"errors\":[]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W06-02",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Card number failing Luhn check is rejected",
+      "objective": "Verify card number (Luhn), expiry (MM/YY, not expired) and CVV validation",
+      "pre": "validators.js module loaded; system date 2026",
+      "steps": "1. Call validateCard({cardNumber, expiry, cvv})  2. Compare {valid, errors} with expected",
+      "data": "[{\"cardNumber\":\"4242424242424241\",\"expiry\":\"12/30\",\"cvv\":\"123\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Invalid card number\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Invalid card number\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W06-03",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Expired card is rejected",
+      "objective": "Verify card number (Luhn), expiry (MM/YY, not expired) and CVV validation",
+      "pre": "validators.js module loaded; system date 2026",
+      "steps": "1. Call validateCard({cardNumber, expiry, cvv})  2. Compare {valid, errors} with expected",
+      "data": "[{\"cardNumber\":\"4242424242424242\",\"expiry\":\"01/20\",\"cvv\":\"123\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Card has expired\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Card has expired\"]}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W06-04",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Invalid expiry month (13) is rejected",
+      "objective": "Verify card number (Luhn), expiry (MM/YY, not expired) and CVV validation",
+      "pre": "validators.js module loaded; system date 2026",
+      "steps": "1. Call validateCard({cardNumber, expiry, cvv})  2. Compare {valid, errors} with expected",
+      "data": "[{\"cardNumber\":\"4242424242424242\",\"expiry\":\"13/30\",\"cvv\":\"123\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"Expiry must be MM/YY\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"Expiry must be MM/YY\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W06-05",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Non-numeric CVV is rejected",
+      "objective": "Verify card number (Luhn), expiry (MM/YY, not expired) and CVV validation",
+      "pre": "validators.js module loaded; system date 2026",
+      "steps": "1. Call validateCard({cardNumber, expiry, cvv})  2. Compare {valid, errors} with expected",
+      "data": "[{\"cardNumber\":\"4242424242424242\",\"expiry\":\"12/30\",\"cvv\":\"ab1\"}]",
+      "expected": "{\"valid\":false,\"errors\":[\"CVV must be 3 or 4 digits\"]}",
+      "actual": "{\"valid\":false,\"errors\":[\"CVV must be 3 or 4 digits\"]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W06-06",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Card number with spaces is accepted",
+      "objective": "Verify card number (Luhn), expiry (MM/YY, not expired) and CVV validation",
+      "pre": "validators.js module loaded; system date 2026",
+      "steps": "1. Call validateCard({cardNumber, expiry, cvv})  2. Compare {valid, errors} with expected",
+      "data": "[{\"cardNumber\":\"4242 4242 4242 4242\",\"expiry\":\"12/30\",\"cvv\":\"123\"}]",
+      "expected": "{\"valid\":true,\"errors\":[]}",
+      "actual": "{\"valid\":true,\"errors\":[]}",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

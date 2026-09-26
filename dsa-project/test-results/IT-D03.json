@@ -1,0 +1,92 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "integration",
+    "id": "IT-D03",
+    "name": "CLI Menu (main.py) <-> Input <-> Processing <-> Visualization",
+    "modules": "main.py (menu)  ->  input_module.py  ->  processing.py  ->  linked_list / bst / stack_queue / sorting / graph  ->  visualizer.py",
+    "strategy": "Top-Down Integration: the top-level menu (main.py) is tested end-to-end through all lower modules using real keyboard input (stdin).",
+    "dataPassed": "stdin keystrokes -> menu choice + raw text -> parsed values -> data structures/algorithms -> rendered text on stdout"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-D03-01",
+      "uc": "UC-D01..UC-D05",
+      "title": "Sorting menu: quick sort + binary search",
+      "objective": "Verify the complete program: user keystrokes flow through every module and the right output is printed",
+      "pre": "Python 3 installed; run from project root",
+      "steps": "1. Start `python main.py`  2. Send keystrokes from Test Data  3. Check printed output",
+      "data": "4 / 9 3 7 1 / quick / 7 / 0",
+      "expected": "output contains \"After (quick sort)\" and \"Binary search: found at index 2\"",
+      "actual": "After (quick sort): | Search for a value (blank to skip): Binary search: found at index 2",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D03-02",
+      "uc": "UC-D01..UC-D05",
+      "title": "Graph menu: BFS, DFS and Dijkstra",
+      "objective": "Verify the complete program: user keystrokes flow through every module and the right output is printed",
+      "pre": "Python 3 installed; run from project root",
+      "steps": "1. Start `python main.py`  2. Send keystrokes from Test Data  3. Check printed output",
+      "data": "5 / A-B:4, A-C:1, C-B:2, B-D:5 / A / D / 0",
+      "expected": "BFS: ['A', 'B', 'C', 'D'] and Dijkstra: A -> C -> B -> D  (total distance: 8)",
+      "actual": "BFS: ['A', 'B', 'C', 'D'] | Dijkstra: A -> C -> B -> D  (total distance: 8)",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D03-03",
+      "uc": "UC-D01..UC-D05",
+      "title": "Linked list menu: insert, delete, search",
+      "objective": "Verify the complete program: user keystrokes flow through every module and the right output is printed",
+      "pre": "Python 3 installed; run from project root",
+      "steps": "1. Start `python main.py`  2. Send keystrokes from Test Data  3. Check printed output",
+      "data": "1 / 5 3 8 / i / 10 / d / 3 / s / 10 / b / 0",
+      "expected": "shows \"HEAD -> 5 -> 8 -> 10 -> None\" and \"Found at index 2\"",
+      "actual": "HEAD -> 5 -> 8 -> 10 -> None (size=3) | Found at index 2",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D03-04",
+      "uc": "UC-D01..UC-D05",
+      "title": "BST menu: delete node and show traversals",
+      "objective": "Verify the complete program: user keystrokes flow through every module and the right output is printed",
+      "pre": "Python 3 installed; run from project root",
+      "steps": "1. Start `python main.py`  2. Send keystrokes from Test Data  3. Check printed output",
+      "data": "2 / 50 30 70 20 / d / 30 / t / b / 0",
+      "expected": "Inorder:   [20, 50, 70] after deleting 30",
+      "actual": "[i]nsert  [d]elete  [s]earch  [t]raversals  [b]ack: Inorder:   [20, 50, 70] | Height: 1 | Min: 20 | Max: 70",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-D03-05",
+      "uc": "UC-D01..UC-D05",
+      "title": "Invalid numeric input shows error, program keeps running",
+      "objective": "Verify the complete program: user keystrokes flow through every module and the right output is printed",
+      "pre": "Python 3 installed; run from project root",
+      "steps": "1. Start `python main.py`  2. Send keystrokes from Test Data  3. Check printed output",
+      "data": "4 / 5, abc / 0",
+      "expected": "Error: Invalid number: 'abc' then Goodbye! (no crash)",
+      "actual": "Enter numbers: Error: Invalid number: 'abc' | Choose: Goodbye!",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-D03-06",
+      "uc": "UC-D01..UC-D05",
+      "title": "Invalid menu choice is handled",
+      "objective": "Verify the complete program: user keystrokes flow through every module and the right output is printed",
+      "pre": "Python 3 installed; run from project root",
+      "steps": "1. Start `python main.py`  2. Send keystrokes from Test Data  3. Check printed output",
+      "data": "9 / 0",
+      "expected": "prints \"Invalid choice\" then exits normally",
+      "actual": "Invalid choice | Goodbye!",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

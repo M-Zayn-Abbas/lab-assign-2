@@ -1,0 +1,89 @@
+{
+  "project": "web",
+  "group": {
+    "level": "unit",
+    "id": "UT-W07",
+    "name": "calculateTotal() - Cart total with discount"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-W07-01",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Empty cart total is 0",
+      "objective": "Verify cart total = sum(price x qty), with 10% discount when subtotal > 10,000",
+      "pre": "orders.js module loaded",
+      "steps": "1. Call calculateTotal(items)  2. Compare returned total with expected",
+      "data": "[[]]",
+      "expected": "0",
+      "actual": "0",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W07-02",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Single line total is price x qty",
+      "objective": "Verify cart total = sum(price x qty), with 10% discount when subtotal > 10,000",
+      "pre": "orders.js module loaded",
+      "steps": "1. Call calculateTotal(items)  2. Compare returned total with expected",
+      "data": "[[{\"price\":1500,\"qty\":2}]]",
+      "expected": "3000",
+      "actual": "3000",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W07-03",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Subtotal exactly 10,000 gets no discount (boundary)",
+      "objective": "Verify cart total = sum(price x qty), with 10% discount when subtotal > 10,000",
+      "pre": "orders.js module loaded",
+      "steps": "1. Call calculateTotal(items)  2. Compare returned total with expected",
+      "data": "[[{\"price\":5000,\"qty\":2}]]",
+      "expected": "10000",
+      "actual": "10000",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W07-04",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Subtotal above 10,000 gets 10% discount",
+      "objective": "Verify cart total = sum(price x qty), with 10% discount when subtotal > 10,000",
+      "pre": "orders.js module loaded",
+      "steps": "1. Call calculateTotal(items)  2. Compare returned total with expected",
+      "data": "[[{\"price\":6500,\"qty\":2}]]",
+      "expected": "11700",
+      "actual": "11700",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-W07-05",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Decimal prices are rounded to 2 places",
+      "objective": "Verify cart total = sum(price x qty), with 10% discount when subtotal > 10,000",
+      "pre": "orders.js module loaded",
+      "steps": "1. Call calculateTotal(items)  2. Compare returned total with expected",
+      "data": "[[{\"price\":99.99,\"qty\":3}]]",
+      "expected": "299.97",
+      "actual": "299.97",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-W07-06",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Invalid input (null) returns 0",
+      "objective": "Verify cart total = sum(price x qty), with 10% discount when subtotal > 10,000",
+      "pre": "orders.js module loaded",
+      "steps": "1. Call calculateTotal(items)  2. Compare returned total with expected",
+      "data": "[null]",
+      "expected": "0",
+      "actual": "0",
+      "status": "Pass",
+      "priority": "Low"
+    }
+  ]
+}

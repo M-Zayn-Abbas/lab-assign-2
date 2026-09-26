@@ -1,0 +1,89 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "unit",
+    "id": "UT-M05",
+    "name": "saveProfile() / loadProfile() / clearProfile() / loadSession() - Local storage"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-M05-01",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Saved profile can be loaded back",
+      "objective": "Verify profile/session data is saved to and read from device storage (AsyncStorage) correctly",
+      "pre": "AsyncStorage replaced by official in-memory Jest mock, cleared before each test",
+      "steps": "1. Call storage function(s)  2. Read back value  3. Compare with expected",
+      "data": "saveProfile(1, {Ali, 22, 03001234567}); loadProfile(1)",
+      "expected": "{\"name\":\"Ali\",\"age\":22,\"phone\":\"03001234567\"}",
+      "actual": "{\"name\":\"Ali\",\"age\":22,\"phone\":\"03001234567\"}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M05-02",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Loading profile of unknown user returns null",
+      "objective": "Verify profile/session data is saved to and read from device storage (AsyncStorage) correctly",
+      "pre": "AsyncStorage replaced by official in-memory Jest mock, cleared before each test",
+      "steps": "1. Call storage function(s)  2. Read back value  3. Compare with expected",
+      "data": "loadProfile(99)",
+      "expected": "null",
+      "actual": "null",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M05-03",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Corrupted profile JSON returns null instead of crashing",
+      "objective": "Verify profile/session data is saved to and read from device storage (AsyncStorage) correctly",
+      "pre": "AsyncStorage replaced by official in-memory Jest mock, cleared before each test",
+      "steps": "1. Call storage function(s)  2. Read back value  3. Compare with expected",
+      "data": "AsyncStorage[\"profile:1\"] = \"{bad json\"",
+      "expected": "null",
+      "actual": "null",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M05-04",
+      "uc": "UC-M03 Manage Profile",
+      "title": "clearProfile removes the saved profile",
+      "objective": "Verify profile/session data is saved to and read from device storage (AsyncStorage) correctly",
+      "pre": "AsyncStorage replaced by official in-memory Jest mock, cleared before each test",
+      "steps": "1. Call storage function(s)  2. Read back value  3. Compare with expected",
+      "data": "saveProfile(1, ...); clearProfile(1); loadProfile(1)",
+      "expected": "null",
+      "actual": "null",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M05-05",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Saving without userId throws",
+      "objective": "Verify profile/session data is saved to and read from device storage (AsyncStorage) correctly",
+      "pre": "AsyncStorage replaced by official in-memory Jest mock, cleared before each test",
+      "steps": "1. Call storage function(s)  2. Read back value  3. Compare with expected",
+      "data": "saveProfile(undefined, profile)",
+      "expected": "\"throws: userId is required\"",
+      "actual": "\"throws: userId is required\"",
+      "status": "Pass",
+      "priority": "Low"
+    },
+    {
+      "id": "UT-M05-06",
+      "uc": "UC-M03 Manage Profile",
+      "title": "Corrupted session JSON returns null instead of crashing",
+      "objective": "Verify profile/session data is saved to and read from device storage (AsyncStorage) correctly",
+      "pre": "AsyncStorage replaced by official in-memory Jest mock, cleared before each test",
+      "steps": "1. Call storage function(s)  2. Read back value  3. Compare with expected",
+      "data": "AsyncStorage[\"session\"] = \"{bad json\"",
+      "expected": "null",
+      "actual": "Threw error: Expected property name or '}' in JSON at position 1",
+      "status": "Fail",
+      "priority": "High"
+    }
+  ]
+}

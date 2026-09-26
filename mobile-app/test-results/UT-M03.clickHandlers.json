@@ -1,0 +1,89 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "unit",
+    "id": "UT-M03",
+    "name": "toggleLike() / stepCounter() - Button click handlers"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "UT-M03-01",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Like button adds post id to liked set",
+      "objective": "Verify the Like button and +/- stepper handlers compute the correct next state",
+      "pre": "handlers.js module loaded",
+      "steps": "1. Call handler with current state  2. Compare new state with expected",
+      "data": "toggleLike(Set[], 1)",
+      "expected": "[1]",
+      "actual": "[1]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M03-02",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Pressing Like again removes the like",
+      "objective": "Verify the Like button and +/- stepper handlers compute the correct next state",
+      "pre": "handlers.js module loaded",
+      "steps": "1. Call handler with current state  2. Compare new state with expected",
+      "data": "toggleLike(Set[1], 1)",
+      "expected": "[]",
+      "actual": "[]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M03-03",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Handler does not mutate previous state",
+      "objective": "Verify the Like button and +/- stepper handlers compute the correct next state",
+      "pre": "handlers.js module loaded",
+      "steps": "1. Call handler with current state  2. Compare new state with expected",
+      "data": "prev=Set[2]; toggleLike(prev, 3)",
+      "expected": "{\"prev\":[2],\"next\":[2,3]}",
+      "actual": "{\"prev\":[2],\"next\":[2,3]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M03-04",
+      "uc": "UC-M02 View Dashboard",
+      "title": "\"+\" increases posts limit by 5",
+      "objective": "Verify the Like button and +/- stepper handlers compute the correct next state",
+      "pre": "handlers.js module loaded",
+      "steps": "1. Call handler with current state  2. Compare new state with expected",
+      "data": "stepCounter(5, +5)",
+      "expected": "10",
+      "actual": "10",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "UT-M03-05",
+      "uc": "UC-M02 View Dashboard",
+      "title": "\"+\" at maximum stays at 20 (upper bound)",
+      "objective": "Verify the Like button and +/- stepper handlers compute the correct next state",
+      "pre": "handlers.js module loaded",
+      "steps": "1. Call handler with current state  2. Compare new state with expected",
+      "data": "stepCounter(20, +5)",
+      "expected": "20",
+      "actual": "20",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "UT-M03-06",
+      "uc": "UC-M02 View Dashboard",
+      "title": "\"-\" at minimum stays at 5 (lower bound)",
+      "objective": "Verify the Like button and +/- stepper handlers compute the correct next state",
+      "pre": "handlers.js module loaded",
+      "steps": "1. Call handler with current state  2. Compare new state with expected",
+      "data": "stepCounter(5, -5)",
+      "expected": "5",
+      "actual": "5",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

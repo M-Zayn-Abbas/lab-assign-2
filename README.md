@@ -76,3 +76,25 @@ Demo logins: `ali@test.com / ali123`, `sara@test.com / sara123`. Data comes from
 - Full pipeline through the CLI: `main.py`
 
 Suggested strategy: **bottom-up** (units → processing → visualizer → `main.py`) or **incremental** (add one module at a time).
+
+---
+
+## Lab 2 test suites & report
+
+| Project | Tests | Run |
+|---|---|---|
+| web-app | `tests/unit` (UT-W01..07), `tests/component` (CT-W01..03), `tests/integration` (IT-W01..03) | `npm test` |
+| mobile-app | `__tests__/unit` (UT-M01..06), `__tests__/component` (CT-M01..03), `__tests__/integration` (IT-M01..03) | `npm test` |
+| dsa-project | `tests/unit` (UT-D01..06), `tests/component` (CT-D01..03), `tests/integration` (IT-D01..03) | `python -m unittest discover -s tests -t . -v` |
+
+Each test writes its input / expected / actual / status to `test-results/*.json` in its project.
+Some tests fail **on purpose**: they expose real bugs (listed in section 6 of the report).
+
+Regenerate screenshots and the report (needs Edge or Chrome installed):
+```
+cd report
+npm install
+node capture-evidence.js      # runs every test group, screenshots terminal output -> ../screenshots/<project>/
+node capture-ui.js            # screenshots the running apps -> ../screenshots/<project>-ui/
+node build-report.js          # -> ../Lab2_Testing_Report.docx  (edit STUDENT at the top first)
+```

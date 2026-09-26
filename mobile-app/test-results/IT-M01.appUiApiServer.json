@@ -1,0 +1,79 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "integration",
+    "id": "IT-M01",
+    "name": "App UI <-> API Server",
+    "modules": "App.js + DashboardScreen (UI)  <->  api.js (fetchPosts/fetchUser)  <->  API server (jsonplaceholder, stubbed)",
+    "strategy": "Top-Down Integration: the top-level App/Dashboard UI is integrated with the real API module; the remote server is replaced by a stub returning jsonplaceholder-shaped data.",
+    "dataPassed": "UI -> API: userId, limit (GET /posts?userId=1, GET /users/1);  API -> UI: JSON posts[] / user{} parsed into models, or error message"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-M01-01",
+      "uc": "UC-M02 View Dashboard",
+      "title": "After login dashboard shows first 5 posts from server",
+      "objective": "Verify the Dashboard UI requests data from the API server and displays / handles the responses",
+      "pre": "Storage cleared; global fetch replaced by a fake jsonplaceholder server",
+      "steps": "Render <App/>, log in, interact with Dashboard",
+      "data": "login ali@test.com/ali123; server returns 10 posts",
+      "expected": "5 post cards rendered (post-101..post-105)",
+      "actual": "5 post cards rendered (post-101..post-105)",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M01-02",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Pressing \"+\" re-requests and shows 10 posts",
+      "objective": "Verify the Dashboard UI requests data from the API server and displays / handles the responses",
+      "pre": "Storage cleared; global fetch replaced by a fake jsonplaceholder server",
+      "steps": "Render <App/>, log in, interact with Dashboard",
+      "data": "press limit-plus once",
+      "expected": "10 post cards rendered, /posts requested again",
+      "actual": "10 post cards rendered, /posts requested 2 times",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-M01-03",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Server error is shown on the dashboard",
+      "objective": "Verify the Dashboard UI requests data from the API server and displays / handles the responses",
+      "pre": "Storage cleared; global fetch replaced by a fake jsonplaceholder server",
+      "steps": "Render <App/>, log in, interact with Dashboard",
+      "data": "server responds 500 to every request",
+      "expected": "\"Server error (500)\"",
+      "actual": "\"Server error (500)\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M01-04",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Refresh button calls the API again",
+      "objective": "Verify the Dashboard UI requests data from the API server and displays / handles the responses",
+      "pre": "Storage cleared; global fetch replaced by a fake jsonplaceholder server",
+      "steps": "Render <App/>, log in, interact with Dashboard",
+      "data": "press refresh-button",
+      "expected": "/posts requested 2 times",
+      "actual": "/posts requested 2 times",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-M01-05",
+      "uc": "UC-M02 View Dashboard",
+      "title": "Logged-in user id is sent to the server",
+      "objective": "Verify the Dashboard UI requests data from the API server and displays / handles the responses",
+      "pre": "Storage cleared; global fetch replaced by a fake jsonplaceholder server",
+      "steps": "Render <App/>, log in, interact with Dashboard",
+      "data": "login sara@test.com/sara123 (userId 2)",
+      "expected": "request URL contains userId=2 and cards are post-201..",
+      "actual": "{\"url\":\"https://jsonplaceholder.typicode.com/posts?userId=2\",\"first\":\"post-201\"}",
+      "status": "Pass",
+      "priority": "High"
+    }
+  ]
+}

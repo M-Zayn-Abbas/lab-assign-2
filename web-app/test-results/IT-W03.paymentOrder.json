@@ -1,0 +1,79 @@
+{
+  "project": "web",
+  "group": {
+    "level": "integration",
+    "id": "IT-W03",
+    "name": "Payment Gateway <-> Order Module",
+    "modules": "Order Module (orders.js: createOrder, calculateTotal)  <->  Payment Module (payment.js: processPayment)  <->  Product Module (reduceStock)",
+    "strategy": "Incremental Integration: Product module + Order module were combined first, then the Payment gateway was added and the combined flow re-tested.",
+    "dataPassed": "Order -> Payment: {amount = calculated total, cardNumber, expiry, cvv};  Payment -> Order: {ok, payment.id, status};  Order -> Product: (productId, qty) for stock reduction"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-W03-01",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Successful payment creates PAID order and reduces stock",
+      "objective": "Verify the order module charges through the payment gateway and only updates stock/orders when payment succeeds",
+      "pre": "DB seeded (stock: Mouse=10, Keyboard=5, Cable=50); user logged in",
+      "steps": "POST /api/orders with items + card",
+      "data": "items=[{productId:1, qty:2}], card 4242...",
+      "expected": "status 201, total 3000, order PAID, payment SUCCESS, Mouse stock 10 -> 8",
+      "actual": "status 201, total 3000, order PAID, payments [\"SUCCESS\"], stock [8,5,50]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W03-02",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Declined payment creates no order and keeps stock",
+      "objective": "Verify the order module charges through the payment gateway and only updates stock/orders when payment succeeds",
+      "pre": "DB seeded (stock: Mouse=10, Keyboard=5, Cable=50); user logged in",
+      "steps": "POST /api/orders with items + card",
+      "data": "items=[{productId:1, qty:2}], card 4000000000000002",
+      "expected": "status 402, 0 orders, payment DECLINED, stock unchanged [10,5,50]",
+      "actual": "status 402, orders 0, payments [\"DECLINED\"], stock [10,5,50]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-W03-03",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Discounted total (>10,000) is what the gateway charges",
+      "objective": "Verify the order module charges through the payment gateway and only updates stock/orders when payment succeeds",
+      "pre": "DB seeded (stock: Mouse=10, Keyboard=5, Cable=50); user logged in",
+      "steps": "POST /api/orders with items + card",
+      "data": "items=[{productId:2, qty:2}] (2 x 6500 = 13000)",
+      "expected": "order.total = 11700 and payment amount = 11700",
+      "actual": "{\"total\":11700,\"charged\":11700}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-W03-04",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Insufficient stock is detected before charging the card",
+      "objective": "Verify the order module charges through the payment gateway and only updates stock/orders when payment succeeds",
+      "pre": "DB seeded (stock: Mouse=10, Keyboard=5, Cable=50); user logged in",
+      "steps": "POST /api/orders with items + card",
+      "data": "items=[{productId:2, qty:6}] (stock 5)",
+      "expected": "status 409, no payment recorded, stock unchanged",
+      "actual": "status 409, [\"Insufficient stock for Mechanical Keyboard\"], payments [], stock [10,5,50]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-W03-05",
+      "uc": "UC-W04 Checkout & Pay",
+      "title": "Same product in two cart lines exceeding stock is refused without charging",
+      "objective": "Verify the order module charges through the payment gateway and only updates stock/orders when payment succeeds",
+      "pre": "DB seeded (stock: Mouse=10, Keyboard=5, Cable=50); user logged in",
+      "steps": "POST /api/orders with items + card",
+      "data": "items=[{productId:1, qty:6},{productId:1, qty:6}] (stock 10)",
+      "expected": "status 409 \"Insufficient stock\", no payment recorded, stock stays 10",
+      "actual": "status 500, orders 0, payments [\"SUCCESS\"], Mouse stock 4",
+      "status": "Fail",
+      "priority": "High"
+    }
+  ]
+}

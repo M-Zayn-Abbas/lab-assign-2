@@ -1,0 +1,89 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "component",
+    "id": "CT-D01",
+    "name": "Complete Linked List Module",
+    "component": "Linked List Module (dsa/linked_list.py)",
+    "units": [
+      "Node",
+      "insert_at_head()",
+      "insert_at_tail()",
+      "insert_at()",
+      "delete()",
+      "delete_at()",
+      "search()",
+      "reverse()",
+      "to_list()",
+      "__len__()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-D01-01",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Mixed insert/delete/search sequence",
+      "objective": "Verify all linked-list operations work together and keep size/links consistent",
+      "pre": "linked_list.py imported",
+      "steps": "Execute the operation sequence given in Test Data",
+      "data": "tail 10,20,30; head 5; insert_at(2,15); delete(20); search(30)",
+      "expected": "{\"list\": [5, 10, 15, 30], \"size\": 4, \"index_of_30\": 3}",
+      "actual": "{\"list\": [5, 10, 15, 30], \"size\": 4, \"index_of_30\": 3}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-D01-02",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Reverse then search uses new positions",
+      "objective": "Verify all linked-list operations work together and keep size/links consistent",
+      "pre": "linked_list.py imported",
+      "steps": "Execute the operation sequence given in Test Data",
+      "data": "[1,2,3,4] reverse(); search(1)",
+      "expected": "{\"list\": [4, 3, 2, 1], \"index_of_1\": 3}",
+      "actual": "{\"list\": [4, 3, 2, 1], \"index_of_1\": 3}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D01-03",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Reverse on empty and single-node lists",
+      "objective": "Verify all linked-list operations work together and keep size/links consistent",
+      "pre": "linked_list.py imported",
+      "steps": "Execute the operation sequence given in Test Data",
+      "data": "[] reverse, [7] reverse",
+      "expected": "[[], [7]]",
+      "actual": "[[], [7]]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D01-04",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "Bulk 1000 inserts + 500 deletes keeps size consistent",
+      "objective": "Verify all linked-list operations work together and keep size/links consistent",
+      "pre": "linked_list.py imported",
+      "steps": "Execute the operation sequence given in Test Data",
+      "data": "insert 0..999, delete even numbers",
+      "expected": "{\"size\": 500, \"to_list_len\": 500, \"first\": 1, \"last\": 999}",
+      "actual": "{\"size\": 500, \"to_list_len\": 500, \"first\": 1, \"last\": 999}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-D01-05",
+      "uc": "UC-D01 Manage Linked List",
+      "title": "List can be emptied and reused",
+      "objective": "Verify all linked-list operations work together and keep size/links consistent",
+      "pre": "linked_list.py imported",
+      "steps": "Execute the operation sequence given in Test Data",
+      "data": "[1,2,3] delete all, then insert 9",
+      "expected": "[[], true, [9]]",
+      "actual": "[[], true, [9]]",
+      "status": "Pass",
+      "priority": "Medium"
+    }
+  ]
+}

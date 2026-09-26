@@ -1,0 +1,79 @@
+{
+  "project": "mobile",
+  "group": {
+    "level": "integration",
+    "id": "IT-M03",
+    "name": "Notification Service <-> User Data",
+    "modules": "storage.js (profile) + api.js (posts)  ->  notifications.js (generateNotifications)  ->  App.js tab badge + NotificationsScreen",
+    "strategy": "Bottom-Up Integration: storage and notification units (already tested) are combined first, then driven through App.js and the Notifications/Profile screens.",
+    "dataPassed": "User {name}, posts[] (count, latest title), profile {age} -> notification list [{id, text, read}] -> unread badge count"
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "IT-M03-01",
+      "uc": "UC-M03 Profile / UC-M04 Notifications",
+      "title": "New user without profile sees 3 unread alerts",
+      "objective": "Verify notifications react to the user's stored profile and posts data",
+      "pre": "Storage cleared; fake API server installed; user Ali logs in",
+      "steps": "Render <App/>, log in, change profile, open Alerts tab",
+      "data": "login ali, no saved profile",
+      "expected": "\"Alerts (3)\"",
+      "actual": "\"Alerts (3)\"",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M03-02",
+      "uc": "UC-M03 Profile / UC-M04 Notifications",
+      "title": "Saving an under-18 profile updates notifications",
+      "objective": "Verify notifications react to the user's stored profile and posts data",
+      "pre": "Storage cleared; fake API server installed; user Ali logs in",
+      "steps": "Render <App/>, log in, change profile, open Alerts tab",
+      "data": "save profile {Ali, 16, 03001234567}, open Alerts",
+      "expected": "{\"underageNotice\":true,\"completeProfileNotice\":false}",
+      "actual": "{\"underageNotice\":true,\"completeProfileNotice\":false}",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "IT-M03-03",
+      "uc": "UC-M03 Profile / UC-M04 Notifications",
+      "title": "Profile already in storage is used at login",
+      "objective": "Verify notifications react to the user's stored profile and posts data",
+      "pre": "Storage cleared; fake API server installed; user Ali logs in",
+      "steps": "Render <App/>, log in, change profile, open Alerts tab",
+      "data": "AsyncStorage[\"profile:1\"] = {Ali, 25, ...}; login",
+      "expected": "\"Alerts (2)\"",
+      "actual": "\"Alerts (2)\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-M03-04",
+      "uc": "UC-M03 Profile / UC-M04 Notifications",
+      "title": "Tapping a notification lowers the unread badge",
+      "objective": "Verify notifications react to the user's stored profile and posts data",
+      "pre": "Storage cleared; fake API server installed; user Ali logs in",
+      "steps": "Render <App/>, log in, change profile, open Alerts tab",
+      "data": "open Alerts, tap \"welcome\"",
+      "expected": "\"Alerts (2)\"",
+      "actual": "\"Alerts (2)\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "IT-M03-05",
+      "uc": "UC-M03 Profile / UC-M04 Notifications",
+      "title": "Read notifications stay read after profile update",
+      "objective": "Verify notifications react to the user's stored profile and posts data",
+      "pre": "Storage cleared; fake API server installed; user Ali logs in",
+      "steps": "Render <App/>, log in, change profile, open Alerts tab",
+      "data": "Mark all read -> save profile {Ali, 25, 03001234567}",
+      "expected": "\"Alerts\" (0 unread: welcome/posts were already read, no new notices for age 25)",
+      "actual": "\"Alerts (2)\"",
+      "status": "Fail",
+      "priority": "Medium"
+    }
+  ]
+}

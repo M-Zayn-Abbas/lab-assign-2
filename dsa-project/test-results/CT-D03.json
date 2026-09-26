@@ -1,0 +1,113 @@
+{
+  "project": "dsa",
+  "group": {
+    "level": "component",
+    "id": "CT-D03",
+    "name": "Graph Processing Module",
+    "component": "Graph Processing Module (dsa/graph.py)",
+    "units": [
+      "add_vertex()",
+      "add_edge()",
+      "remove_edge()",
+      "neighbors()",
+      "bfs()",
+      "dfs()",
+      "has_path()",
+      "dijkstra()"
+    ]
+  },
+  "testDate": "2026-09-26",
+  "cases": [
+    {
+      "id": "CT-D03-01",
+      "uc": "UC-D05 Graph Processing",
+      "title": "BFS visits level by level",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "bfs('A')",
+      "expected": "[\"A\", \"B\", \"C\", \"D\", \"E\"]",
+      "actual": "[\"A\", \"B\", \"C\", \"D\", \"E\"]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-D03-02",
+      "uc": "UC-D05 Graph Processing",
+      "title": "DFS goes deep first",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "dfs('A')",
+      "expected": "[\"A\", \"B\", \"C\", \"E\", \"D\"]",
+      "actual": "[\"A\", \"B\", \"C\", \"E\", \"D\"]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D03-03",
+      "uc": "UC-D05 Graph Processing",
+      "title": "Dijkstra finds shortest weighted path",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "dijkstra('A','D')",
+      "expected": "[8, [\"A\", \"C\", \"B\", \"D\"]]",
+      "actual": "[8, [\"A\", \"C\", \"B\", \"D\"]]",
+      "status": "Pass",
+      "priority": "High"
+    },
+    {
+      "id": "CT-D03-04",
+      "uc": "UC-D05 Graph Processing",
+      "title": "Unreachable vertex returns inf and empty path",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "add X-Y; dijkstra('A','X'); has_path('A','Y')",
+      "expected": "[\"inf\", [], false]",
+      "actual": "[\"inf\", [], false]",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D03-05",
+      "uc": "UC-D05 Graph Processing",
+      "title": "Removing an edge changes the shortest path",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "remove_edge('C','B') then dijkstra('A','D')",
+      "expected": "{\"before\": [8, [\"A\", \"C\", \"B\", \"D\"]], \"after\": [9, [\"A\", \"B\", \"D\"]]}",
+      "actual": "{\"before\": [8, [\"A\", \"C\", \"B\", \"D\"]], \"after\": [9, [\"A\", \"B\", \"D\"]]}",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D03-06",
+      "uc": "UC-D05 Graph Processing",
+      "title": "Negative weight is rejected",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "add_edge('A','Z',-2)",
+      "expected": "\"throws ValueError: Negative weights are not supported\"",
+      "actual": "\"throws ValueError: Negative weights are not supported\"",
+      "status": "Pass",
+      "priority": "Medium"
+    },
+    {
+      "id": "CT-D03-07",
+      "uc": "UC-D05 Graph Processing",
+      "title": "DFS on a long path graph (1501 vertices)",
+      "objective": "Verify graph building, traversals and shortest path work together",
+      "pre": "graph.py imported; sample graph A-B:4, A-C:1, C-B:2, B-D:5, C-E:8, D-E:3",
+      "steps": "Build graph, run the listed algorithm",
+      "data": "path 0-1-2-...-1500, dfs(0)",
+      "expected": "1501",
+      "actual": "Threw error: RecursionError: maximum recursion depth exceeded",
+      "status": "Fail",
+      "priority": "High"
+    }
+  ]
+}
