@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopEase</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+    header { background: #2d6cdf; color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+    main { max-width: 960px; margin: 20px auto; padding: 0 16px; display: grid; gap: 16px; }
+    .card { background: #fff; border-radius: 8px; padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+    h2 { margin-top: 0; font-size: 18px; }
+    input { padding: 8px; margin: 4px 0; width: 100%; border: 1px solid #ccc; border-radius: 4px; }
+    button { padding: 8px 14px; background: #2d6cdf; color: #fff; border: 0; border-radius: 4px; cursor: pointer; margin-top: 6px; }
+    button.danger { background: #d9534f; }
+    button.secondary { background: #666; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    table { width: 100%; border-collapse: collapse; }
+    td, th { padding: 6px; border-bottom: 1px solid #eee; text-align: left; }
+    .msg { margin-top: 8px; font-size: 14px; white-space: pre-line; }
+    .error { color: #c62828; }
+    .success { color: #2e7d32; }
+    .hidden { display: none; }
+    @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <strong>ShopEase</strong>
+    <span id="userInfo">Not logged in</span>
+  </header>
+
+  <main>
+    <!-- Authentication -->
+    <section class="row" id="authSection">
+      <div class="card">
+        <h2>Register</h2>
+        <input id="regName" placeholder="Full name" />
+        <input id="regEmail" placeholder="Email" />
+        <input id="regPassword" type="password" placeholder="Password (8+ chars, A-z, 0-9)" />
+        <button id="registerBtn">Register</button>
+        <div id="regMsg" class="msg"></div>
+      </div>
+      <div class="card">
+        <h2>Login</h2>
+        <input id="loginEmail" placeholder="Email" />
+        <input id="loginPassword" type="password" placeholder="Password" />
+        <button id="loginBtn">Login</button>
+        <div id="loginMsg" class="msg"></div>
+      </div>
+    </section>
+
+    <button id="logoutBtn" class="secondary hidden">Logout</button>
+
+    <!-- Products -->
+    <section class="card">
+      <h2>Products</h2>
+      <input id="searchInput" placeholder="Search products..." />
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Stock</th><th>Qty</th><th></th></tr></thead>
+        <tbody id="productTable"></tbody>
+      </table>
+      <div id="productMsg" class="msg"></div>
+    </section>
+
+    <section class="card hidden" id="addProductSection">
+      <h2>Add Product</h2>
+      <input id="prodName" placeholder="Product name" />
+      <input id="prodPrice" placeholder="Price" />
+      <input id="prodStock" placeholder="Stock" />
+      <button id="addProductBtn">Add Product</button>
+      <div id="addProductMsg" class="msg"></div>
+    </section>
+
+    <!-- Cart + Payment -->
+    <section class="row hidden" id="checkoutSection">
+      <div class="card">
+        <h2>Cart</h2>
+        <table><tbody id="cartTable"></tbody></table>
+        <p><strong>Total: <span id="cartTotal">Rs. 0</span></strong> <small>(10% off above Rs. 10,000)</small></p>
+        <button id="clearCartBtn" class="secondary">Clear cart</button>
+      </div>
+      <div class="card">
+        <h2>Payment</h2>
+        <input id="cardNumber" placeholder="Card number (e.g. 4242 4242 4242 4242)" />
+        <input id="cardExpiry" placeholder="Expiry MM/YY" />
+        <input id="cardCvv" placeholder="CVV" />
+        <button id="payBtn">Pay &amp; Place Order</button>
+        <div id="payMsg" class="msg"></div>
+      </div>
+    </section>
+
+    <section class="card hidden" id="ordersSection">
+      <h2>My Orders</h2>
+      <table>
+        <thead><tr><th>Order #</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+        <tbody id="ordersTable"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="api.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "shopease-web-app",
+  "version": "1.0.0",
+  "description": "Simple e-commerce web app (Auth, Products, Orders/Payment) for Unit, Component & Integration testing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --verbose"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
